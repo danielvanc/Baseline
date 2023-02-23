@@ -1,8 +1,8 @@
 export default function Home() {
   return (
-    <div>
-      <h1>Home</h1>
-      <p>Welcome to the home page!</p>
+    <div className="p-10 text-center">
+      <h1 className="text-2xl">Welcome ballers</h1>
+      <p>A new kind of stats app is coming your way soon...</p>
     </div>
   );
 }
