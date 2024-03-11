@@ -1,4 +1,3 @@
-import type { LinksFunction } from "@remix-run/node";
 import {
   Links,
   Meta,
@@ -7,7 +6,7 @@ import {
   ScrollRestoration,
 } from "@remix-run/react";
 
-export const links: LinksFunction = () => [];
+import "~/styles/tailwind.css";
 
 export default function App() {
   return (
