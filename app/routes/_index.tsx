@@ -10,7 +10,7 @@ export const meta: MetaFunction = () => {
 export default function Index() {
   return (
     <div className="p-10">
-      <h1>New NBA Stats app coming soon...</h1>
+      <h1>(Staging) New NBA Stats app coming soon...</h1>
     </div>
   );
 }
