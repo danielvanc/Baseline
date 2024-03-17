@@ -1,6 +1,14 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+
+@theme {
+  --color-primary: var(--theme-color);
+}
 
 @layer base {
+  :root {
+    --theme-color: #aab9ff;
+  }
+  [data-theme="phx"] {
+    --theme-color: #56d0a0;
+  }
 }
