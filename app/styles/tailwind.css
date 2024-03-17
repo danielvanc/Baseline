@@ -2,13 +2,16 @@
 
 @theme {
   --color-primary: var(--theme-color);
+  --color-neutral-50: var(--color-neutral-50);
 }
 
 @layer base {
   :root {
     --theme-color: #aab9ff;
+    --color-neutral-50: #f9fafb;
   }
   [data-theme="phx"] {
     --theme-color: #56d0a0;
+    --color-neutral-50: #ff8c00;
   }
 }

@@ -22,7 +22,7 @@ export default function Index() {
   return (
     <>
       <main>
-        <div className="p-11 bg-primary" data-theme={team}>
+        <div className="p-11 bg-primary text-neutral-50" data-theme={team}>
           <h1>Primary theme</h1>
         </div>
         {/* <div className="p-11 bg-primary" data-theme="rainforest">
