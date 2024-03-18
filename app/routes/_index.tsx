@@ -1,5 +1,5 @@
 import type { ActionFunctionArgs, MetaFunction } from "@remix-run/node";
-import { Form, json, useActionData } from "@remix-run/react";
+import { json, useFetcher } from "@remix-run/react";
 
 export const meta: MetaFunction = () => {
   return [
@@ -16,28 +16,23 @@ export async function action({ request }: ActionFunctionArgs) {
 }
 
 export default function Index() {
-  const data = useActionData<typeof action>();
-  const team = data?.team ?? null;
+  const fetcher = useFetcher<typeof action>();
+  const hasSelectedTeam = !!(fetcher.state === "idle" && fetcher?.data?.team);
+  const team = hasSelectedTeam ? fetcher?.data?.team : null;
 
   return (
     <>
       <main>
-        <div className="p-11 bg-primary text-neutral-50" data-theme={team}>
+        <div className="p-11 bg-primary text-brand" data-theme={team}>
           <h1>Primary theme</h1>
         </div>
-        {/* <div className="p-11 bg-primary" data-theme="rainforest">
-          <h1>Rainforest theme</h1>
-        </div>
-        <div className="p-11 bg-primary" data-theme="candy">
-          <h1>Candy theme</h1>
-        </div> */}
       </main>
       <aside>
-        <Form method="POST">
+        <fetcher.Form method="post">
           <button type="submit" value="phx" name="team-chooser">
             Choose PHX
           </button>
-        </Form>
+        </fetcher.Form>
       </aside>
     </>
   );
