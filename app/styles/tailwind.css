@@ -1,17 +1,34 @@
 @import "tailwindcss";
 
+/* 
+  Theme colors used:
+  1. Background
+  2. Heading text
+  3. Image
+  4. Team name large
+  5. Border colours
+*/
+
 @theme {
-  --color-brand: var(--color-brand);
-  --color-primary: var(--theme-color);
+  --color-brand-text: var(--color-brand-text);
+  --color-brand-bg: var(--color-brand-bg);
+  --color-brand-heading: var(--color-brand-heading);
+  --color-brand-bdr: var(--color-brand-bdr);
 }
 
 @layer base {
   :root {
     --theme-color: #aab9ff;
-    --color-brand: #f9fafb;
+    --color-brand-text: #f9fafb;
+    --color-brand-bg: #234160;
+    --color-brand-heading: #ff8c00;
+    --color-brand-bdr: #ff8c00;
   }
   [data-theme="phx"] {
     --theme-color: #56d0a0;
-    --color-brand: #ff8c00;
+    --color-brand-bg: #6e1818;
+    --color-brand-text: #ff8c00;
+    --color-brand-heading: #ff8c00;
+    --color-brand-bdr: #ff8c00;
   }
 }
