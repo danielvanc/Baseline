@@ -14,6 +14,9 @@
   --color-brand-bg: var(--color-brand-bg);
   --color-brand-heading: var(--color-brand-heading);
   --color-brand-bdr: var(--color-brand-bdr);
+  --color-orange-300: #e16c40;
+  --color-orange-500: #c34426;
+  --color-orange-700: #b63018;
 }
 
 @layer base {
@@ -24,7 +27,7 @@
     --color-brand-heading: #ff8c00;
     --color-brand-bdr: #ff8c00;
   }
-  [data-theme="phx"] {
+  [data-theme="PHX"] {
     --theme-color: #56d0a0;
     --color-brand-bg: #6e1818;
     --color-brand-text: #ff8c00;
