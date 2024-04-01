@@ -16,6 +16,8 @@
   },
   "dependencies": {
     "@epic-web/invariant": "^1.0.0",
+    "@headlessui/react": "^1.7.18",
+    "@heroicons/react": "^2.1.3",
     "@remix-run/node": "^2.8.1",
     "@remix-run/react": "^2.8.1",
     "@remix-run/serve": "^2.8.1",

@@ -1,5 +1,54 @@
 @import "tailwindcss";
 
+html {
+  font-family: var(--font-sans);
+  color: var(--color-brand-text);
+}
+.logo {
+  font-family: var(--font-logo);
+  color: var(--color-brand-text);
+}
+
+@font-face {
+  font-family: "Lobster";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/fonts/Lobster-Regular.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url("/fonts/Inter-Light.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/fonts/Inter-Regular.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("/fonts/Inter-Bold.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+  src: url("/fonts/Inter-Black.woff2") format("woff2");
+}
+
 /* 
   Theme colors used:
   1. Background
@@ -10,6 +59,7 @@
 */
 
 @theme {
+  --font-sans: "Inter", sans-serif;
   --color-brand-text: var(--color-brand-text);
   --color-brand-bg: var(--color-brand-bg);
   --color-brand-heading: var(--color-brand-heading);
@@ -21,6 +71,8 @@
 
 @layer base {
   :root {
+    --font-sans: "Inter", sans-serif;
+    --font-logo: "Lobster", sans-serif;
     --theme-color: #aab9ff;
     --color-brand-text: #f9fafb;
     --color-brand-bg: #234160;

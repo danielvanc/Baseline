@@ -11,8 +11,8 @@ import {
 } from "@remix-run/react";
 import tailwindStyles from "~/styles/tailwind.css?url";
 import { teams } from "./config/teams";
-import React from "react";
-import { useIsSubmitting } from "./utils/optimistic";
+import { useRef } from "react";
+import { useIsSubmitting } from "~/utils/optimistic";
 
 export const links: LinksFunction = () => {
   return [{ rel: "stylesheet", href: tailwindStyles }].filter(Boolean);
@@ -28,7 +28,7 @@ export async function action({ request }: ActionFunctionArgs) {
 export default function App() {
   const teamFetcher = useFetcher<typeof action>();
   const submitTeamSelection = useSubmit();
-  const ref = React.useRef<HTMLSelectElement>(null);
+  const ref = useRef<HTMLSelectElement>(null);
   const selectedTeam = ref.current?.value;
   const data = useActionData<typeof action>();
   const showAllTeams = data?.team === "all";
@@ -44,7 +44,7 @@ export default function App() {
       : defaultBgGradient;
 
   return (
-    <html lang="en" className="h-screen">
+    <html lang="en" className="h-screen font-sans">
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
