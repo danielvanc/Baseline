@@ -13,7 +13,7 @@ jobs:
       - name: ⬇️ Checkout repo
         uses: actions/checkout@v3
 
-      - name: 👀 Read app name
+      - name: 👀 Read the app name
         uses: SebRollen/toml-action@v1.0.2
         id: app_name
         with:
