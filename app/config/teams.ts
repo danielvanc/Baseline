@@ -1,3 +1,9 @@
+import { z } from "zod";
+
+export const TeamSelector = z.object({
+  team: z.string(),
+});
+
 export const teams = [
   { abbr: "ATL", name: "Atlanta Hawks" },
   { abbr: "BOS", name: "Boston Celtics" },
@@ -29,4 +35,4 @@ export const teams = [
   { abbr: "TOR", name: "Toronto Raptors" },
   { abbr: "UTA", name: "Utah Jazz" },
   { abbr: "WAS", name: "Washington Wizards" },
-];
+] as const;
