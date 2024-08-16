@@ -13,7 +13,7 @@ export default function Index() {
       <p className="logo text-9xl">
         <span className="underline">Base</span>Line
       </p>
-      <h1 className="font-black">Primary theme</h1>
+      <h1 className="font-black">Primary theme (STAGING)</h1>
     </div>
   );
 }
