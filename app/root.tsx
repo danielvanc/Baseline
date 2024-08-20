@@ -22,7 +22,7 @@ import { useIsSubmitting } from "~/utils/optimistic";
 import { invariantResponse } from "@epic-web/invariant";
 import { parseWithZod } from "@conform-to/zod";
 
-const defaultBgGradient =
+const defaultBg =
   "bg-gradient-to-b from-orange-500 via-orange-700 to-orange-300";
 
 export const links: LinksFunction = () => {
@@ -56,14 +56,14 @@ function Document({
   team?: string;
 }) {
   return (
-    <html lang="en" className="h-screen font-sans">
+    <html lang="en" className="h-screen font-sans" data-theme={team}>
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <Meta />
         <Links />
       </head>
-      <body className={classes} data-theme={team}>
+      <body className={classes}>
         {children}
         <ScrollRestoration />
         <Scripts />
@@ -74,31 +74,30 @@ function Document({
 
 export default function App() {
   const teamFetcher = useFetcher<typeof action>();
+  const teamSelectionFormRef = useRef<HTMLSelectElement>(null);
   const submitTeamSelection = useSubmit();
-  const ref = useRef<HTMLSelectElement>(null);
-  const selectedTeam = ref.current?.value;
   const data = useActionData<typeof action>();
 
+  const optimisticTeam = teamSelectionFormRef.current?.value;
   const showAllTeams = data?.team === "all";
   const submittedTeam = data && !showAllTeams ? data.team : null;
+
   // For a nicer UX when switching themes on a slow network, thet's optimistically-load the theme.
-  const team = useIsSubmitting({}) ? selectedTeam : submittedTeam;
-  const classes =
-    submittedTeam && (submittedTeam !== "all" || team !== "all")
-      ? "bg-brand-bg"
-      : defaultBgGradient;
+  const team = useIsSubmitting({}) ? optimisticTeam : submittedTeam;
+
+  const classes = team && team !== "all" ? "bg-skin-base" : defaultBg;
 
   return (
     <Document classes={classes} team={team?.toString()}>
       <header>
         <nav>
           <h1>Baseline</h1>
-          <div>
+          <div className="bg-skin-base">
             <teamFetcher.Form method="post">
               <select
                 name="team"
                 onChange={(e) => submitTeamSelection(e.target.form)}
-                ref={ref}
+                ref={teamSelectionFormRef}
               >
                 <option key={`theme-no-team`} value={"all"}>
                   All teams
@@ -126,7 +125,7 @@ export function ErrorBoundary() {
 
   return (
     // TODO: Use whatever theme the user has selected
-    <Document classes={defaultBgGradient} team="all">
+    <Document classes={defaultBg} team="all">
       <div>
         <p>{message}</p>
       </div>
