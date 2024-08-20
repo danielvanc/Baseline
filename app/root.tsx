@@ -86,12 +86,19 @@ export default function App() {
   const team = useIsSubmitting({}) ? optimisticTeam : submittedTeam;
 
   const classes = team && team !== "all" ? "bg-skin-base" : defaultBg;
+  const selectedTheme =
+    team && team !== "all"
+      ? teams.find((t) => t.abbr === team)?.name
+      : "Baseline";
 
   return (
     <Document classes={classes} team={team?.toString()}>
+      <h1 className="text-skin-base">{selectedTheme}</h1>
       <header>
         <nav>
-          <h1>Baseline</h1>
+          <div className="logo text-9xl text-skin-base">
+            <span className="underline">Base</span>Line
+          </div>
           <div className="bg-skin-base">
             <teamFetcher.Form method="post">
               <select
