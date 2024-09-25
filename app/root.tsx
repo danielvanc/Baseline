@@ -23,13 +23,18 @@ import React from "react";
 import { invariantResponse } from "@epic-web/invariant";
 import { parseWithZod } from "@conform-to/zod";
 import { themeCookie } from "./utils/theme.server";
+import ThemeLogo from "./components/ui/ThemeLogo";
 
 const defaultTheme = "all";
 const defaultBg =
   "bg-gradient-to-b from-orange-500 via-orange-700 to-orange-300";
 
 export const links: LinksFunction = () => {
-  return [{ rel: "stylesheet", href: tailwindStyles }];
+  return [
+    { rel: "preload", href: "/assets/teams/LAL.svg", as: "image" },
+    { rel: "preload", href: "/assets/teams/PHX.svg", as: "image" },
+    { rel: "stylesheet", href: tailwindStyles },
+  ];
 };
 
 export async function loader({ request }: LoaderFunctionArgs) {
@@ -117,6 +122,7 @@ export default function App() {
   return (
     <Document classNames={classNames} theme={newTheme}>
       <h1 className="text-skin-base">{selectedTeamName}</h1>
+      {newTheme !== defaultTheme && <ThemeLogo theme={newTheme} />}
       <header>
         <nav>
           <div className="logo text-9xl text-skin-base">
