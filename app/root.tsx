@@ -3,6 +3,8 @@ import {
   ErrorResponse,
   json,
   LinksFunction,
+  LoaderFunctionArgs,
+  redirect,
 } from "@remix-run/node";
 import {
   Links,
@@ -10,18 +12,19 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
-  useActionData,
   useFetcher,
+  useLoaderData,
   useRouteError,
   useSubmit,
 } from "@remix-run/react";
 import tailwindStyles from "~/styles/tailwind.css?url";
 import { teams, TeamSelector } from "./config/teams";
-import { useRef } from "react";
-import { useIsSubmitting } from "~/utils/optimistic";
+import React from "react";
 import { invariantResponse } from "@epic-web/invariant";
 import { parseWithZod } from "@conform-to/zod";
+import { themeCookie } from "./utils/theme.server";
 
+const defaultTheme = "all";
 const defaultBg =
   "bg-gradient-to-b from-orange-500 via-orange-700 to-orange-300";
 
@@ -29,9 +32,27 @@ export const links: LinksFunction = () => {
   return [{ rel: "stylesheet", href: tailwindStyles }];
 };
 
+export async function loader({ request }: LoaderFunctionArgs) {
+  const cookieHeader = request.headers.get("Cookie");
+  if (cookieHeader) {
+    const cookie = (await themeCookie.parse(cookieHeader)) || {
+      theme: defaultTheme,
+    };
+
+    return json({ theme: cookie.theme });
+  }
+
+  return json({ theme: defaultTheme });
+}
+
 export async function action({ request }: ActionFunctionArgs) {
   const data = await request.formData();
   const submission = parseWithZod(data, { schema: TeamSelector });
+
+  const themeCookieHeader = request.headers.get("Cookie");
+  const cookie = (await themeCookie.parse(themeCookieHeader)) || {
+    theme: defaultTheme,
+  };
 
   invariantResponse(
     submission.status === "success",
@@ -41,29 +62,37 @@ export async function action({ request }: ActionFunctionArgs) {
     { status: 500, headers: { "Content-Type": "application/json" } }
   );
 
-  const team = data.get("team");
+  const team = data.get("team") || defaultTheme;
 
-  return json({ team });
+  cookie.theme = team;
+
+  return redirect("/", {
+    headers: {
+      "Set-Cookie": await themeCookie.serialize(cookie, {
+        expires: new Date(Date.now() + 60_000),
+      }),
+    },
+  });
 }
 
 function Document({
   children,
-  classes = "",
-  team,
+  classNames = "",
+  theme,
 }: {
   children: React.ReactNode;
-  classes?: string;
-  team?: string;
+  classNames: string;
+  theme: string;
 }) {
   return (
-    <html lang="en" className="h-screen font-sans" data-theme={team}>
+    <html lang="en" className="h-screen font-sans" data-theme={theme}>
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <Meta />
         <Links />
       </head>
-      <body className={classes}>
+      <body className={classNames}>
         {children}
         <ScrollRestoration />
         <Scripts />
@@ -74,26 +103,20 @@ function Document({
 
 export default function App() {
   const teamFetcher = useFetcher<typeof action>();
-  const teamSelectionFormRef = useRef<HTMLSelectElement>(null);
+  const teamsFormRef = React.useRef<HTMLSelectElement>(null);
   const submitTeamSelection = useSubmit();
-  const data = useActionData<typeof action>();
+  const savedTheme = useLoaderData<typeof loader>()?.theme ?? defaultTheme;
+  const newTheme = teamsFormRef.current?.value || savedTheme;
+  const classNames = newTheme !== defaultTheme ? "bg-skin-base" : defaultBg;
 
-  const optimisticTeam = teamSelectionFormRef.current?.value;
-  const showAllTeams = data?.team === "all";
-  const submittedTeam = data && !showAllTeams ? data.team : null;
-
-  // For a nicer UX when switching themes on a slow network, thet's optimistically-load the theme.
-  const team = useIsSubmitting({}) ? optimisticTeam : submittedTeam;
-
-  const classes = team && team !== "all" ? "bg-skin-base" : defaultBg;
-  const selectedTheme =
-    team && team !== "all"
-      ? teams.find((t) => t.abbr === team)?.name
+  const selectedTeamName =
+    newTheme && newTheme !== defaultTheme
+      ? teams.find((t) => t.abbr === newTheme)?.name
       : "Baseline";
 
   return (
-    <Document classes={classes} team={team?.toString()}>
-      <h1 className="text-skin-base">{selectedTheme}</h1>
+    <Document classNames={classNames} theme={newTheme}>
+      <h1 className="text-skin-base">{selectedTeamName}</h1>
       <header>
         <nav>
           <div className="logo text-9xl text-skin-base">
@@ -104,9 +127,10 @@ export default function App() {
               <select
                 name="team"
                 onChange={(e) => submitTeamSelection(e.target.form)}
-                ref={teamSelectionFormRef}
+                ref={teamsFormRef}
+                defaultValue={teams.find((t) => t.abbr === newTheme)?.abbr}
               >
-                <option key={`theme-no-team`} value={"all"}>
+                <option key={`theme-no-team`} value={defaultTheme}>
                   All teams
                 </option>
                 {teams.map((team) => (
@@ -132,7 +156,7 @@ export function ErrorBoundary() {
 
   return (
     // TODO: Use whatever theme the user has selected
-    <Document classes={defaultBg} team="all">
+    <Document classNames={defaultBg} theme={defaultTheme}>
       <div>
         <p>{message}</p>
       </div>
