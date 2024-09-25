@@ -30,11 +30,7 @@ const defaultBg =
   "bg-gradient-to-b from-orange-500 via-orange-700 to-orange-300";
 
 export const links: LinksFunction = () => {
-  return [
-    { rel: "preload", href: "/assets/teams/LAL.svg", as: "image" },
-    { rel: "preload", href: "/assets/teams/PHX.svg", as: "image" },
-    { rel: "stylesheet", href: tailwindStyles },
-  ];
+  return [{ rel: "stylesheet", href: tailwindStyles }];
 };
 
 export async function loader({ request }: LoaderFunctionArgs) {
