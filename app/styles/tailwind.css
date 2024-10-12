@@ -2,5 +2,181 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: "Lobster";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/fonts/Lobster-Regular.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url("/fonts/Inter-Light.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/fonts/Inter-Regular.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("/fonts/Inter-Bold.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+  src: url("/fonts/Inter-Black.woff2") format("woff2");
+}
+
 @layer base {
+  html {
+    font-family: var(--font-inter);
+  }
+  .logo {
+    font-family: var(--font-logo);
+  }
+  :root {
+    --font-sans: "Inter", sans-serif;
+    --font-logo: "Lobster", sans-serif;
+    --color-text-primary: #f5f5f5;
+  }
+
+  [data-theme="ATL"] {
+    --color-text-primary: #ffffff;
+    --bg-color-primary: #e03a3e;
+  }
+  [data-theme="BOS"] {
+    --color-text-primary: #ffffff;
+    --bg-color-primary: #007a33;
+  }
+  [data-theme="BKN"] {
+    --color-text-primary: #ffffff;
+    --bg-color-primary: #000000;
+  }
+  [data-theme="CHA"] {
+    --color-text-primary: #ffffff;
+    --bg-color-primary: #00788c;
+  }
+  [data-theme="CHI"] {
+    --color-text-primary: #ffffff;
+    --bg-color-primary: #ce1141;
+  }
+  [data-theme="CLE"] {
+    --color-text-primary: #fdbb30;
+    --bg-color-primary: #860038;
+  }
+  [data-theme="DAL"] {
+    --color-text-primary: #ffffff;
+    --bg-color-primary: #00538c;
+  }
+  [data-theme="DEN"] {
+    --color-text-primary: #fec524;
+    --bg-color-primary: #0e2240;
+  }
+  [data-theme="DET"] {
+    --color-text-primary: #c8102e;
+    --bg-color-primary: #1d42ba;
+  }
+  [data-theme="GSW"] {
+    --color-text-primary: #ffc72c;
+    --bg-color-primary: #1d428a;
+  }
+  [data-theme="HOU"] {
+    --color-text-primary: #ffffff;
+    --bg-color-primary: #ce1141;
+  }
+  [data-theme="IND"] {
+    --color-text-primary: #fdbb30;
+    --bg-color-primary: #002d62;
+  }
+  [data-theme="LAC"] {
+    --color-text-primary: #ffffff;
+    --bg-color-primary: #c8102e;
+  }
+  [data-theme="LAL"] {
+    --color-text-primary: #fdb927;
+    --bg-color-primary: #552583;
+  }
+  [data-theme="MEM"] {
+    --color-text-primary: #ffffff;
+    --bg-color-primary: #5d76a9;
+  }
+  [data-theme="MIA"] {
+    --color-text-primary: #f9a01b;
+    --bg-color-primary: #98002e;
+  }
+  [data-theme="MIL"] {
+    --color-text-primary: #eee1c6;
+    --bg-color-primary: #00471b;
+  }
+  [data-theme="MIN"] {
+    --color-text-primary: #ffffff;
+    --bg-color-primary: #0c2340;
+  }
+  [data-theme="NOP"] {
+    --color-text-primary: #a78e60;
+    --bg-color-primary: #0c2340;
+  }
+  [data-theme="NYK"] {
+    --color-text-primary: #f58426;
+    --bg-color-primary: #006bb6;
+  }
+  [data-theme="OKC"] {
+    --color-text-primary: #ffffff;
+    --bg-color-primary: #007ac1;
+  }
+  [data-theme="OKC"] {
+    --color-text-primary: #ffffff;
+    --bg-color-primary: #007ac1;
+  }
+  [data-theme="ORL"] {
+    --color-text-primary: #c4ced4;
+    --bg-color-primary: #0077c0;
+  }
+  [data-theme="PHI"] {
+    --color-text-primary: #ffffff;
+    --bg-color-primary: #006bb6;
+  }
+  [data-theme="PHX"] {
+    --color-text-primary: #e56020;
+    --bg-color-primary: #1d1160;
+  }
+  [data-theme="POR"] {
+    --color-text-primary: #ffffff;
+    --bg-color-primary: #e03a3e;
+  }
+  [data-theme="SAC"] {
+    --color-text-primary: #f5f5f5;
+    --bg-color-primary: #5a2d81;
+  }
+  [data-theme="SAS"] {
+    --color-text-primary: #ffffff;
+    --bg-color-primary: #000000;
+  }
+  [data-theme="TOR"] {
+    --color-text-primary: #ffffff;
+    --bg-color-primary: #e31247;
+  }
+  [data-theme="UTA"] {
+    --color-text-primary: #ffffff;
+    --bg-color-primary: #002b5c;
+  }
+  [data-theme="WAS"] {
+    --color-text-primary: #ffffff;
+    --bg-color-primary: #002b5c;
+  }
 }
