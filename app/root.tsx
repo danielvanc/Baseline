@@ -12,10 +12,8 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
-  useFetcher,
   useLoaderData,
   useRouteError,
-  useSubmit,
 } from "@remix-run/react";
 import tailwindStyles from "~/styles/tailwind.css?url";
 import { teams, TeamSelector } from "./config/teams";
@@ -24,6 +22,7 @@ import { invariantResponse } from "@epic-web/invariant";
 import { parseWithZod } from "@conform-to/zod";
 import { themeCookie } from "./utils/theme.server";
 import ThemeLogo from "./components/ui/ThemeLogo";
+import Header from "./components/header";
 
 const defaultTheme = "all";
 const defaultBg =
@@ -103,11 +102,9 @@ function Document({
 }
 
 export default function App() {
-  const teamFetcher = useFetcher<typeof action>();
-  const teamsFormRef = React.useRef<HTMLSelectElement>(null);
-  const submitTeamSelection = useSubmit();
+  const formRef = React.useRef<HTMLSelectElement>(null);
   const savedTheme = useLoaderData<typeof loader>()?.theme ?? defaultTheme;
-  const newTheme = teamsFormRef.current?.value || savedTheme;
+  const newTheme = formRef.current?.value || savedTheme;
   const classNames = newTheme !== defaultTheme ? "bg-skin-base" : defaultBg;
 
   const selectedTeamName =
@@ -117,37 +114,18 @@ export default function App() {
 
   return (
     <Document classNames={classNames} theme={newTheme}>
-      <h1 className="text-skin-base">{selectedTeamName}</h1>
+      <h1 className="text-skin-base absolute bottom-[-30px] right-0 text-9xl font-black opacity-20">
+        {selectedTeamName}
+      </h1>
       {newTheme !== defaultTheme && <ThemeLogo theme={newTheme} />}
-      <header>
-        <nav>
-          <div className="logo text-9xl text-skin-base">
-            <span className="underline">Base</span>Line
-          </div>
-          <div className="bg-skin-base">
-            <teamFetcher.Form method="post">
-              <select
-                name="team"
-                onChange={(e) => submitTeamSelection(e.target.form)}
-                ref={teamsFormRef}
-                defaultValue={teams.find((t) => t.abbr === newTheme)?.abbr}
-              >
-                <option key={`theme-no-team`} value={defaultTheme}>
-                  All teams
-                </option>
-                {teams.map((team) => (
-                  <option key={`theme-${team.abbr}`} value={team.abbr}>
-                    {team.name}
-                  </option>
-                ))}
-              </select>
-            </teamFetcher.Form>
-          </div>
-        </nav>
-      </header>
-      <main>
+      <div className="container">
+        <Header
+          newTheme={newTheme}
+          defaultTheme={defaultTheme}
+          formRef={formRef}
+        />
         <Outlet />
-      </main>
+      </div>
     </Document>
   );
 }
