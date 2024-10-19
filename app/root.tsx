@@ -92,7 +92,7 @@ function Document({
         <Meta />
         <Links />
       </head>
-      <body className={classNames}>
+      <body className={`h-screen ${classNames}`}>
         {children}
         <ScrollRestoration />
         <Scripts />
@@ -102,11 +102,10 @@ function Document({
 }
 
 export default function App() {
-  const formRef = React.useRef<HTMLSelectElement>(null);
   const savedTheme = useLoaderData<typeof loader>()?.theme ?? defaultTheme;
-  const newTheme = formRef.current?.value || savedTheme;
+  const spanRef = React.useRef<HTMLSpanElement>(savedTheme);
+  const newTheme = spanRef?.current?.innerText || savedTheme;
   const classNames = newTheme !== defaultTheme ? "bg-skin-base" : defaultBg;
-
   const selectedTeamName =
     newTheme && newTheme !== defaultTheme
       ? teams.find((t) => t.abbr === newTheme)?.name
@@ -122,7 +121,7 @@ export default function App() {
         <Header
           newTheme={newTheme}
           defaultTheme={defaultTheme}
-          formRef={formRef}
+          spanRef={spanRef}
         />
         <Outlet />
       </div>
