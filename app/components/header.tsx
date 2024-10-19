@@ -1,47 +1,29 @@
-import { useFetcher, useSubmit } from "@remix-run/react";
+import { Form, useSubmit } from "@remix-run/react";
 import React from "react";
-import { teams } from "~/config/teams";
-import { action } from "~/root";
-import * as Select from "@radix-ui/react-select";
-import classnames from "classnames";
 import {
-  CheckIcon,
-  ChevronDownIcon,
-  ChevronUpIcon,
-} from "@radix-ui/react-icons";
+  Listbox,
+  ListboxButton,
+  ListboxOption,
+  ListboxOptions,
+} from "@headlessui/react";
+import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
+import { teams } from "~/config/teams";
 interface HeaderProps {
   newTheme: string;
   defaultTheme: string;
-  formRef: React.RefObject<HTMLSelectElement>;
+  spanRef: React.RefObject<HTMLSpanElement>;
 }
-
-const SelectItem = React.forwardRef(
-  ({ children, className, ...props }, forwardedRef) => {
-    return (
-      <Select.Item
-        className={classnames(
-          "relative flex h-[25px] select-none items-center rounded-[3px] pl-[25px] pr-[35px] text-[13px] leading-none text-violet11 data-[disabled]:pointer-events-none data-[highlighted]:bg-violet9 data-[disabled]:text-mauve8 data-[highlighted]:text-violet1 data-[highlighted]:outline-none",
-          className
-        )}
-        {...props}
-        ref={forwardedRef}
-      >
-        <Select.ItemText>{children}</Select.ItemText>
-        <Select.ItemIndicator className="absolute left-0 inline-flex w-[25px] items-center justify-center">
-          <CheckIcon />
-        </Select.ItemIndicator>
-      </Select.Item>
-    );
-  }
-);
 
 export default function Header({
   newTheme,
   defaultTheme,
-  formRef,
+  spanRef,
 }: HeaderProps) {
-  const teamFetcher = useFetcher<typeof action>();
   const submitTeamSelection = useSubmit();
+  const fallbackValue =
+    teams.find((t) => t.abbr === newTheme)?.abbr || defaultTheme;
+  const [selected, setSelected] = React.useState<string | null>(fallbackValue);
+  React.useEffect(() => {}, [selected]);
 
   return (
     <header className="py-8 border-white border-b-[1px] border-opacity-20">
@@ -50,71 +32,72 @@ export default function Header({
           <span className="underline">Base</span>Line
         </div>
         <div className="pt-1 relative">
-          <teamFetcher.Form method="post" id="team-form">
-            <Select.Root
-              onValueChange={(e) => submitTeamSelection(e.target.form)}
-              form="team-form"
-              defaultValue={teams.find((t) => t.abbr === newTheme)?.abbr}
+          <Form method="post" id="team-form">
+            <Listbox
+              defaultValue={fallbackValue}
+              value={selected}
+              onChange={(selected) => {
+                const selectedTeam = {
+                  team: selected,
+                };
+                setSelected(selected);
+                submitTeamSelection(selectedTeam, {
+                  method: "post",
+                });
+              }}
             >
-              <Select.Trigger
-                className="inline-flex h-[35px] items-center justify-center gap-[5px] rounded bg-white px-[15px] text-[13px] leading-none text-violet11 shadow-[0_2px_10px] shadow-black/10 outline-none hover:bg-mauve3 focus:shadow-[0_0_0_2px] focus:shadow-black data-[placeholder]:text-violet9"
-                aria-label="Food"
-              >
-                <Select.Value placeholder="Select a fruit…" />
-                <Select.Icon className="text-violet11">
-                  <ChevronDownIcon />
-                </Select.Icon>
-              </Select.Trigger>
-              <Select.Portal>
-                <Select.Content className="overflow-hidden rounded-md bg-white shadow-[0px_10px_38px_-10px_rgba(22,_23,_24,_0.35),0px_10px_20px_-15px_rgba(22,_23,_24,_0.2)]">
-                  <Select.ScrollUpButton className="flex h-[25px] cursor-default items-center justify-center bg-white text-violet11">
-                    <ChevronUpIcon />
-                  </Select.ScrollUpButton>
-                  <Select.Viewport className="p-[5px]">
-                    <Select.Group>
-                      <Select.Label className="px-[25px] text-xs leading-[25px] text-mauve11">
-                        Fruits
-                      </Select.Label>
-                      <SelectItem value="apple">Apple</SelectItem>
-                      <SelectItem value="banana">Banana</SelectItem>
-                      <SelectItem value="blueberry">Blueberry</SelectItem>
-                      <SelectItem value="grapes">Grapes</SelectItem>
-                      <SelectItem value="pineapple">Pineapple</SelectItem>
-                    </Select.Group>
+              <div className="relative mt-2 w-[215px]">
+                <ListboxButton className="relative w-full cursor-default rounded-md bg-white py-1.5 pl-3 pr-10 text-left text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                  <span ref={spanRef} className="hidden">
+                    {selected ?? "All teams"}
+                  </span>
+                  <span className="block truncate">
+                    {teams?.find((team) => team.abbr === selected)?.name ??
+                      "All teams"}
+                  </span>
+                  <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
+                    <ChevronUpDownIcon
+                      aria-hidden="true"
+                      className="h-5 w-5 text-gray-400"
+                    />
+                  </span>
+                </ListboxButton>
 
-                    <Select.Separator className="m-[5px] h-px bg-violet6" />
+                <ListboxOptions
+                  transition
+                  className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none data-[closed]:data-[leave]:opacity-0 data-[leave]:transition data-[leave]:duration-100 data-[leave]:ease-in sm:text-sm"
+                >
+                  <ListboxOption
+                    key={`theme-no-team`}
+                    value={defaultTheme}
+                    className="group relative cursor-default select-none py-2 pl-3 pr-9 text-gray-900 data-[focus]:bg-indigo-600 data-[focus]:text-white"
+                  >
+                    <span className="block truncate font-normal group-data-[selected]:font-semibold">
+                      All teams
+                    </span>
 
-                    <Select.Group>
-                      <Select.Label className="px-[25px] text-xs leading-[25px] text-mauve11">
-                        Vegetables
-                      </Select.Label>
-                      <SelectItem value="aubergine">Aubergine</SelectItem>
-                      <SelectItem value="broccoli">Broccoli</SelectItem>
-                      <SelectItem value="carrot" disabled>
-                        Carrot
-                      </SelectItem>
-                      <SelectItem value="courgette">Courgette</SelectItem>
-                      <SelectItem value="leek">Leek</SelectItem>
-                    </Select.Group>
+                    <span className="absolute inset-y-0 right-0 flex items-center pr-4 text-indigo-600 group-data-[focus]:text-white [.group:not([data-selected])_&]:hidden">
+                      <CheckIcon aria-hidden="true" className="h-5 w-5" />
+                    </span>
+                  </ListboxOption>
+                  {teams.map((team) => (
+                    <ListboxOption
+                      key={`theme-${team.abbr}`}
+                      value={team.abbr}
+                      className="group relative cursor-default select-none py-2 pl-3 pr-9 text-gray-900 data-[focus]:bg-indigo-600 data-[focus]:text-white"
+                    >
+                      <span className="block truncate font-normal group-data-[selected]:font-semibold">
+                        {team.name}
+                      </span>
 
-                    <Select.Separator className="m-[5px] h-px bg-violet6" />
-
-                    <Select.Group>
-                      <Select.Label className="px-[25px] text-xs leading-[25px] text-mauve11">
-                        Meat
-                      </Select.Label>
-                      <SelectItem value="beef">Beef</SelectItem>
-                      <SelectItem value="chicken">Chicken</SelectItem>
-                      <SelectItem value="lamb">Lamb</SelectItem>
-                      <SelectItem value="pork">Pork</SelectItem>
-                    </Select.Group>
-                  </Select.Viewport>
-                  <Select.ScrollDownButton className="flex h-[25px] cursor-default items-center justify-center bg-white text-violet11">
-                    <ChevronDownIcon />
-                  </Select.ScrollDownButton>
-                </Select.Content>
-              </Select.Portal>
-            </Select.Root>
+                      <span className="absolute inset-y-0 right-0 flex items-center pr-4 text-indigo-600 group-data-[focus]:text-white [.group:not([data-selected])_&]:hidden">
+                        <CheckIcon aria-hidden="true" className="h-5 w-5" />
+                      </span>
+                    </ListboxOption>
+                  ))}
+                </ListboxOptions>
+              </div>
+            </Listbox>
             {/* <select
               name="team"
               onChange={(e) => submitTeamSelection(e.target.form)}
@@ -130,7 +113,7 @@ export default function Header({
                 </option>
               ))}
             </select> */}
-          </teamFetcher.Form>
+          </Form>
         </div>
       </nav>
     </header>
