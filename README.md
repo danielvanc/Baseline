@@ -1,20 +1,24 @@
-# Welcome to Remix!
+# Welcome to Baseline!
 
-- [Remix Docs](https://remix.run/docs)
+An NBA Stats app built with [Remix](https://remix.run).
 
 ## Development
 
-From your terminal:
+To run the local environment with mocks disabled:
 
 ```sh
 npm run dev
 ```
 
-This starts your app in development mode, rebuilding assets on file changes.
+To run the local environment with mocks enabled:
 
-## Deployment
+```sh
+npm run dev:mock
+```
 
-First, build your app for production:
+## Local Production testing
+
+First run a build
 
 ```sh
 npm run build
@@ -25,14 +29,3 @@ Then run the app in production mode:
 ```sh
 npm start
 ```
-
-Now you'll need to pick a host to deploy it to.
-
-### DIY
-
-If you're familiar with deploying node applications, the built-in Remix app server is production-ready.
-
-Make sure to deploy the output of `remix build`
-
-- `build/`
-- `public/build/`
