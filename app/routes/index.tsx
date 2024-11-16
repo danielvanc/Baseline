@@ -7,6 +7,10 @@ export const meta: MetaFunction = () => {
   ];
 };
 
+export async function loader() {
+  return null;
+}
+
 export default function Index() {
   return <div className="p-11"></div>;
 }
