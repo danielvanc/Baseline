@@ -1,7 +1,11 @@
-import { http, HttpResponse } from "msw";
+import { leagueSchedule } from "./leagueSchedule";
+import { leagueStandings } from "./leagueStandings";
+import { miscHandlers } from "./miscHandlers";
+import { scoresTodayAllTeams } from "./scoresToday";
 
 export const handlers = [
-  http.get("/__manifest", () => {
-    return HttpResponse.json({});
-  }),
+  ...miscHandlers,
+  ...scoresTodayAllTeams,
+  ...leagueSchedule,
+  ...leagueStandings,
 ];
