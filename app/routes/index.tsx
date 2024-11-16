@@ -1,4 +1,5 @@
 import type { MetaFunction } from "@remix-run/node";
+import { Outlet } from "@remix-run/react";
 
 export const meta: MetaFunction = () => {
   return [
@@ -8,5 +9,9 @@ export const meta: MetaFunction = () => {
 };
 
 export default function Index() {
-  return <div className="p-11"></div>;
+  return (
+    <div className="p-11">
+      <Outlet />
+    </div>
+  );
 }
