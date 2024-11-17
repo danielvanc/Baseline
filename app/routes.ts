@@ -1,5 +1,3 @@
-import { relative, type RouteConfig } from "@remix-run/route-config";
+import { route, type RouteConfig } from "@remix-run/route-config";
 
-const { route } = relative("./app/routes");
-
-export const routes: RouteConfig = [route("/", "index.tsx")];
+export const routes: RouteConfig = [route("/", "routes/index.tsx")];
