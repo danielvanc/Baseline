@@ -13,7 +13,8 @@
     "build": "remix vite:build",
     "start": "remix-serve ./build/server/index.js",
     "lint": "eslint --ignore-path .gitignore --cache --cache-location ./node_modules/.cache/eslint .",
-    "typecheck": "tsc"
+    "typecheck": "tsc",
+    "test": "vitest"
   },
   "eslintIgnore": [
     "/node_modules",
@@ -29,6 +30,7 @@
     "@remix-run/node": "2.14.0",
     "@remix-run/react": "2.14.0",
     "@remix-run/serve": "2.14.0",
+    "@vitejs/plugin-react": "^4.3.3",
     "cross-env": "^7.0.3",
     "isbot": "^5.1.16",
     "react": "^18.3.1",
@@ -39,6 +41,9 @@
     "@flydotio/dockerfile": "^0.5.2",
     "@remix-run/dev": "2.14.0",
     "@remix-run/route-config": "^2.14.0",
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.0.1",
+    "@testing-library/user-event": "^14.5.2",
     "@types/react": "^18.3.2",
     "@types/react-dom": "^18.3.0",
     "@typescript-eslint/eslint-plugin": "^8.1.0",
@@ -50,12 +55,14 @@
     "eslint-plugin-jsx-a11y": "^6.7.1",
     "eslint-plugin-react": "^7.34.1",
     "eslint-plugin-react-hooks": "^4.6.2",
+    "jest-environment-jsdom": "^29.7.0",
     "msw": "^2.6.5",
     "postcss": "^8.4.35",
     "tailwindcss": "^3.4.3",
     "typescript": "^5.4.5",
     "vite": "^5.2.11",
-    "vite-tsconfig-paths": "^5.0.1"
+    "vite-tsconfig-paths": "^5.0.1",
+    "vitest": "^2.1.5"
   },
   "engines": {
     "node": ">=18.0.0"
