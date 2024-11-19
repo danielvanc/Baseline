@@ -1,6 +1,6 @@
 # Welcome to Baseline!
 
-An NBA Stats app built with [Remix](https://remix.run).
+An NBA Stats app built with [Remix](https://remix.run), [Tailwind](https://tailwindcss.com/) and more.
 
 ## Development
 
