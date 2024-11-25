@@ -1,20 +1,16 @@
 import {
-  ActionFunctionArgs,
   ErrorResponse,
-  json,
-  LinksFunction,
-  LoaderFunctionArgs,
-  redirect,
-} from "@remix-run/node";
-import {
   Links,
+  LinksFunction,
   Meta,
   Outlet,
+  redirect,
   Scripts,
   ScrollRestoration,
   useLoaderData,
   useRouteError,
-} from "@remix-run/react";
+} from "react-router";
+
 import tailwindStyles from "~/styles/tailwind.css?url";
 import { teams, TeamSelector } from "./config/teams";
 import React from "react";
@@ -23,7 +19,7 @@ import { parseWithZod } from "@conform-to/zod";
 import { themeCookie } from "./utils/theme.server";
 import ThemeLogo from "./components/ui/ThemeLogo";
 import Header from "./components/header";
-
+import type { Route } from "./+types/root";
 const defaultTheme = "all";
 const defaultBg =
   "bg-gradient-to-b from-orange-500 via-orange-700 to-orange-300";
@@ -32,20 +28,20 @@ export const links: LinksFunction = () => {
   return [{ rel: "stylesheet", href: tailwindStyles }];
 };
 
-export async function loader({ request }: LoaderFunctionArgs) {
+export async function loader({ request }: Route.LoaderArgs) {
   const cookieHeader = request.headers.get("Cookie");
   if (cookieHeader) {
     const cookie = (await themeCookie.parse(cookieHeader)) || {
       theme: defaultTheme,
     };
 
-    return json({ theme: cookie.theme });
+    return { theme: cookie.theme };
   }
 
-  return json({ theme: defaultTheme });
+  return { theme: defaultTheme };
 }
 
-export async function action({ request }: ActionFunctionArgs) {
+export async function action({ request }: Route.ActionArgs) {
   const data = await request.formData();
   const submission = parseWithZod(data, { schema: TeamSelector });
 
