@@ -1,5 +1,5 @@
 import {
-  ErrorResponse,
+  isRouteErrorResponse,
   Links,
   LinksFunction,
   Meta,
@@ -7,8 +7,6 @@ import {
   redirect,
   Scripts,
   ScrollRestoration,
-  useLoaderData,
-  useRouteError,
 } from "react-router";
 
 import tailwindStyles from "~/styles/tailwind.css?url";
@@ -81,14 +79,18 @@ function Document({
   theme: string;
 }) {
   return (
-    <html lang="en" className="h-screen font-sans" data-theme={theme}>
+    <html
+      lang="en"
+      className={`min-h-screen relative font-sans `}
+      data-theme={theme}
+    >
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <Meta />
         <Links />
       </head>
-      <body className={`h-screen ${classNames}`}>
+      <body className={`min-h-screen relative pb-10 ${classNames}`}>
         {children}
         <ScrollRestoration />
         <Scripts />
@@ -97,10 +99,14 @@ function Document({
   );
 }
 
-export default function App() {
-  const savedTheme = useLoaderData<typeof loader>()?.theme ?? defaultTheme;
+export default function App({
+  loaderData,
+}: {
+  loaderData: { theme: HTMLSpanElement };
+}) {
+  const savedTheme = loaderData?.theme ?? defaultTheme;
   const spanRef = React.useRef<HTMLSpanElement>(savedTheme);
-  const newTheme = spanRef?.current?.innerText || savedTheme;
+  const newTheme = String(spanRef?.current?.innerText || savedTheme);
   const classNames = newTheme !== defaultTheme ? "bg-skin-base" : defaultBg;
   const selectedTeamName =
     newTheme && newTheme !== defaultTheme
@@ -109,7 +115,7 @@ export default function App() {
 
   return (
     <Document classNames={classNames} theme={newTheme}>
-      <h1 className="text-skin-base absolute bottom-[-30px] right-0 text-9xl font-black opacity-20">
+      <h1 className="text-skin-base absolute -bottom-[-30px] right-2 text-9xl font-black opacity-20">
         {selectedTeamName}
       </h1>
       {newTheme !== defaultTheme && <ThemeLogo theme={newTheme} />}
@@ -125,16 +131,16 @@ export default function App() {
   );
 }
 
-export function ErrorBoundary() {
-  const error = useRouteError() as ErrorResponse;
-  const message = error.data.error;
-
-  return (
-    // TODO: Use whatever theme the user has selected
-    <Document classNames={defaultBg} theme={defaultTheme}>
-      <div>
-        <p>{message}</p>
-      </div>
-    </Document>
-  );
+export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
+  if (isRouteErrorResponse(error)) {
+    return (
+      // TODO: Use whatever theme the user has selected
+      <Document classNames={defaultBg} theme={defaultTheme}>
+        <div>
+          <h1>Oops! An error occurred.</h1>
+          <p>{error.data}</p>
+        </div>
+      </Document>
+    );
+  }
 }

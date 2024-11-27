@@ -1,13 +1,21 @@
-export default function BKN() {
+export default function BKN({
+  width = 616,
+  height = 621,
+  opacity,
+}: {
+  width?: number;
+  height?: number;
+  opacity?: string | number | undefined;
+} = {}) {
   return (
     <svg
-      width="616"
-      height="621"
+      width={width}
+      height={height}
       viewBox="0 0 616 621"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <g opacity="0.2" clipPath="url(#clip0_55_2045)">
+      <g opacity={opacity} clipPath="url(#clip0_55_2045)">
         <path
           d="M530.118 109.877L530.16 87.2592L516.809 80.515C512.761 78.4848 416.32 30.5369 283.077 30.5369H277.055C143.301 30.5369 47.3422 78.4988 43.3651 80.5009L29.9713 87.2451L30.0139 109.409C28.9344 166.216 36.0077 310.514 124.652 423.064C197.004 514.999 266.345 536.807 274.001 538.979L280.662 540.882L287.295 539.022C290.278 538.184 361.125 517.497 435.452 423.064C524.181 310.486 531.226 166.671 530.118 109.877Z"
           fill="#FEFEFE"

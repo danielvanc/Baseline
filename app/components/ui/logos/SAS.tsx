@@ -1,13 +1,21 @@
-export default function SAS() {
+export default function SAS({
+  width = 461,
+  height = 582,
+  opacity,
+}: {
+  width?: number;
+  height?: number;
+  opacity?: string | number | undefined;
+} = {}) {
   return (
     <svg
-      width="461"
-      height="582"
+      width={width}
+      height={height}
       viewBox="0 0 461 582"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <g opacity="0.2">
+      <g opacity={opacity}>
         <path
           fillRule="evenodd"
           clipRule="evenodd"

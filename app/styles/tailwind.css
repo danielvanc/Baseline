@@ -54,7 +54,6 @@
     --font-logo: "Lobster", sans-serif;
     --color-text-primary: #f5f5f5;
   }
-
   [data-theme="ATL"] {
     --color-text-primary: #ffffff;
     --bg-color-primary: #e03a3e;
@@ -178,5 +177,11 @@
   [data-theme="WAS"] {
     --color-text-primary: #ffffff;
     --bg-color-primary: #002b5c;
+  }
+}
+
+@layer utilities {
+  .section-heading {
+    @apply text-2xl font-black text-white uppercase tracking-widest mb-4;
   }
 }

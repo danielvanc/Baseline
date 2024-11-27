@@ -1,13 +1,21 @@
-export default function WAS() {
+export default function WAS({
+  width = 488,
+  height = 489,
+  opacity,
+}: {
+  width?: number;
+  height?: number;
+  opacity?: string | number | undefined;
+} = {}) {
   return (
     <svg
-      width="488"
-      height="489"
+      width={width}
+      height={height}
       viewBox="0 0 488 489"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <g opacity="0.2">
+      <g opacity={opacity}>
         <path
           d="M243.194 6.72388C112.074 6.72388 4.4873 113.189 4.4873 244.31C4.4873 375.431 110.953 481.896 242.074 481.896C373.194 481.896 479.66 375.431 479.66 244.31C481.901 113.189 375.436 6.72388 243.194 6.72388Z"
           fill="white"

@@ -1,13 +1,21 @@
-export default function MIN() {
+export default function MIN({
+  width = 624,
+  height = 620,
+  opacity,
+}: {
+  width?: number;
+  height?: number;
+  opacity?: string | number | undefined;
+} = {}) {
   return (
     <svg
-      width="624"
-      height="620"
+      width={width}
+      height={height}
       viewBox="0 0 624 620"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <g opacity="0.3">
+      <g opacity={opacity}>
         <path
           d="M433.389 169.453L431.474 163.708C402.746 80.3983 323.267 22.9434 235.169 22.9434C212.187 22.9434 189.205 26.7737 167.181 34.4343C58.0165 71.7801 1.51914 191.478 38.8649 298.727C67.5924 382.037 147.072 439.492 235.169 439.492C258.151 439.492 281.133 435.661 303.158 428.001C409.449 391.613 466.904 276.703 433.389 169.453Z"
           fill="#919798"

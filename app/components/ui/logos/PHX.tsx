@@ -1,13 +1,21 @@
-export default function PHX() {
+export default function PHX({
+  width = 630,
+  height = 550,
+  opacity,
+}: {
+  width?: number;
+  height?: number;
+  opacity?: string | number | undefined;
+} = {}) {
   return (
     <svg
-      width="630"
-      height="550"
+      width={width}
+      height={height}
       viewBox="0 0 630 550"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <g opacity="0.4">
+      <g opacity={opacity}>
         <g opacity="0.2">
           <g filter="url(#filter0_b_70_46374)">
             <path

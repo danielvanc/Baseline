@@ -1,13 +1,21 @@
-export default function DEN() {
+export default function DEN({
+  width = 549,
+  height = 539,
+  opacity,
+}: {
+  width?: number;
+  height?: number;
+  opacity?: string | number | undefined;
+} = {}) {
   return (
     <svg
-      width="549"
-      height="539"
+      width={width}
+      height={height}
       viewBox="0 0 549 539"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <g opacity="0.3">
+      <g opacity={opacity}>
         <path
           d="M208.614 16.6157C257.871 16.6157 302.118 34.9827 337.182 70.0467C371.411 104.276 390.613 150.193 390.613 198.615C390.613 298.797 308.797 380.613 208.614 380.613C159.357 380.613 114.275 362.247 80.046 327.183C44.982 292.119 26.6152 247.871 26.6152 198.615C26.6152 149.358 44.982 105.111 80.046 70.0467C115.11 34.9827 160.192 16.6157 208.614 16.6157Z"
           fill="#FFC330"

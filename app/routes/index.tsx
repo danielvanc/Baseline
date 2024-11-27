@@ -1,24 +1,31 @@
-import type { MetaFunction } from "react-router";
+import type { Route } from "./+types/index";
+import { getGamesToday } from "~/utils/games";
+import React from "react";
+import { Await } from "react-router";
+import SkeletonTodaysGames from "~/components/ui/loading/skeleton-todays-games";
+import LatestGames from "~/components/latestGames";
 
-export const meta: MetaFunction = () => {
+export function meta() {
   return [
     { title: "Baseline" },
     { name: "description", content: "Welcome to Baseline!" },
   ];
-};
-
-export async function loader() {
-  // const response = await fetch(
-  //   "https://stats.nba.com/stats/leaguestandingsv3?GroupBy=conf&LeagueID=00&Season=2023-24&SeasonType=Regular%20Season&Section=overall"
-  // );
-  // const data = await response.json();
-  // return { data };
-  return {};
 }
 
-export default function Index() {
-  // const { data } = useLoaderData<typeof loader>();
-  // console.log("data", data);
+export async function loader() {
+  const gamesData = getGamesToday();
 
-  return <div className="p-11"></div>;
+  return { gamesData };
+}
+
+export default function Index({
+  loaderData: { gamesData },
+}: Route.ComponentProps) {
+  return (
+    <React.Suspense fallback={<SkeletonTodaysGames />}>
+      <Await resolve={gamesData}>
+        {(gamesData) => <LatestGames data={gamesData.data} />}
+      </Await>
+    </React.Suspense>
+  );
 }

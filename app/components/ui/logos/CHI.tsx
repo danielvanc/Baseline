@@ -1,13 +1,21 @@
-export default function CHI() {
+export default function CHI({
+  width = 500,
+  height = 500,
+  opacity,
+}: {
+  width?: number;
+  height?: number;
+  opacity?: string | number | undefined;
+} = {}) {
   return (
     <svg
-      width="500"
-      height="500"
+      width={width}
+      height={height}
       viewBox="0 0 500 500"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <g opacity="0.15" clipPath="url(#clip0_55_2248)">
+      <g opacity={opacity} clipPath="url(#clip0_55_2248)">
         <mask
           id="mask0_55_2248"
           // style="mask-type:alpha"
