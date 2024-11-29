@@ -64,11 +64,7 @@ export async function getGamesToday() {
     ),
   };
 
-  return data(gamesData, {
-    headers: {
-      "Cache-Control": "public, s-max-age=120",
-    },
-  });
+  return data(gamesData);
 }
 
 export function getRelativeLabel(currentDateISO: string = CURRENT_DATE_ISO) {
