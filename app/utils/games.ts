@@ -71,7 +71,7 @@ export async function getGamesToday() {
 
   return data(gamesData, {
     headers: {
-      "Cache-Control": "public, max-age=60",
+      "Cache-Control": "public, max-age=120",
     },
   });
 }

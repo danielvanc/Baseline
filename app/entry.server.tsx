@@ -14,7 +14,9 @@ import { server } from "./mocks/node";
 
 const ABORT_DELAY = 5_000;
 
-if (process.env.MOCKS === "true") {
+const { NODE_ENV, MOCKS } = process.env;
+
+if (NODE_ENV === "development" && MOCKS === "true") {
   server.listen();
 }
 

@@ -3,7 +3,9 @@ import { handlers } from "./handlers";
 
 export const server = setupServer(...handlers);
 
-if (process.env.MOCKS === "true") {
+const { NODE_ENV, MOCKS } = process.env;
+
+if (NODE_ENV === "development" && MOCKS === "true") {
   console.info("🔶 Mock server running");
 
   process.once("SIGINT", () => server.close());

@@ -8,8 +8,10 @@ import { HydratedRouter } from "react-router/dom";
 import { startTransition, StrictMode } from "react";
 import { hydrateRoot } from "react-dom/client";
 
+const { NODE_ENV, MOCKS } = process.env;
+
 async function prepareApp() {
-  if (process.env.MOCKS === "true") {
+  if (NODE_ENV === "development" && MOCKS === "true") {
     const { worker } = await import("./mocks/browser");
     return worker.start();
   }
