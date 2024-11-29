@@ -1,13 +1,21 @@
-export default function OKC() {
+export default function OKC({
+  width = 604,
+  height = 529,
+  opacity,
+}: {
+  width?: number;
+  height?: number;
+  opacity?: string | number | undefined;
+} = {}) {
   return (
     <svg
-      width="604"
-      height="529"
+      width={width}
+      height={height}
       viewBox="0 0 604 529"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <g opacity="0.3">
+      <g opacity={opacity}>
         <path
           d="M372.486 121.398C407.466 113.236 443.611 107.406 477.424 105.074C440.113 116.734 401.636 129.56 363.158 143.552C366.656 136.556 370.154 129.56 372.486 121.398ZM-4.125 309.12C25.0245 283.469 60.0039 257.817 96.1493 234.498C103.145 231 110.141 227.502 118.303 224.004C121.801 222.838 126.465 219.34 133.461 217.008C138.125 221.672 143.954 227.502 148.618 232.166C94.9833 257.818 44.8461 283.469 -4.125 309.12Z"
           fill="#007DC2"

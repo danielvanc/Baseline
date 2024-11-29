@@ -1,12 +1,21 @@
-export default function LAL() {
+export default function LAL({
+  width = 715,
+  height = 641,
+  opacity,
+}: {
+  width?: number;
+  height?: number;
+  opacity?: string | number | undefined;
+} = {}) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width="715"
-      height="641"
+      width={width}
+      height={height}
+      viewBox="0 0 715 641"
       fill="none"
     >
-      <g opacity=".1">
+      <g opacity={opacity}>
         <path
           fill="#FEFEFE"
           d="M144.569 149.535S206.616 48.28 333.658 48.28s186.14 98.312 186.14 98.312h172.354l-6.905 42.247s-4.927 16.726-12.802 18.688h11.819s3.944 14.752-19.695 65.865h50.227s1.966 89.434-106.364 131.705c0 0-56.137 17.696-84.703-12.766 0 0-57.12 106.161-190.071 106.161-132.952 0-193.033-109.104-193.033-109.104H-14l24.634-44.233H-6.112l19.695-36.372h33.48L52.974 295H37.222l38.407-70.77h21.662l8.87-21.62H87.449l28.554-53.075h28.566Z"

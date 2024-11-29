@@ -1,13 +1,21 @@
-export default function PHI() {
+export default function PHI({
+  width = 601,
+  height = 621,
+  opacity,
+}: {
+  width?: number;
+  height?: number;
+  opacity?: string | number | undefined;
+} = {}) {
   return (
     <svg
-      width="601"
-      height="621"
+      width={width}
+      height={height}
       viewBox="0 0 601 621"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <g opacity="0.3" clipPath="url(#clip0_55_1997)">
+      <g opacity={opacity} clipPath="url(#clip0_55_1997)">
         <path
           d="M535.371 299.903C535.371 440.994 420.994 555.371 279.903 555.371C138.812 555.371 24.4346 440.994 24.4346 299.903C24.4346 158.812 138.812 44.4346 279.903 44.4346C347.661 44.422 412.648 71.3332 460.56 119.246C508.472 167.158 535.384 232.145 535.371 299.903"
           fill="white"

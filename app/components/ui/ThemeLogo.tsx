@@ -7,7 +7,7 @@ type Props = {
 export default function ThemeLogo({ theme }: Props) {
   return (
     <div className="absolute z-[-1]">
-      {teams.find((t) => t.abbr === theme)?.logo?.()}
+      {teams.find((t) => t.abbr === theme)?.logo?.({ opacity: "0.3" })}
     </div>
   );
 }

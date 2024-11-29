@@ -26,12 +26,12 @@ export default function Header({
   React.useEffect(() => {}, [selected]);
 
   return (
-    <header className="py-8 border-white border-b-[1px] border-opacity-20">
+    <header className="py-8 mb-16 border-white border-b-[1px] border-opacity-20">
       <nav className="flex justify-between items-center">
         <div className="logo text-6xl text-skin-base">
           <span className="underline">Base</span>Line
         </div>
-        <div className="pt-1 relative">
+        <div className="pt-1 relative hidden md:block">
           <nav>
             <ul className="flex items-center text-white space-x-8 leading-9">
               <li>Schedule</li>
@@ -106,21 +106,6 @@ export default function Header({
                       </ListboxOptions>
                     </div>
                   </Listbox>
-                  {/* <select
-              name="team"
-              onChange={(e) => submitTeamSelection(e.target.form)}
-              ref={formRef}
-              defaultValue={teams.find((t) => t.abbr === newTheme)?.abbr}
-            >
-              <option key={`theme-no-team`} value={defaultTheme}>
-                All teams
-              </option>
-              {teams.map((team) => (
-                <option key={`theme-${team.abbr}`} value={team.abbr}>
-                  {team.name}
-                </option>
-              ))}
-            </select> */}
                 </Form>
               </li>
             </ul>

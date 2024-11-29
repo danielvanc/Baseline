@@ -1,13 +1,21 @@
-export default function ATL() {
+export default function ATL({
+  width = 499,
+  height = 502,
+  opacity,
+}: {
+  width?: number;
+  height?: number;
+  opacity?: string | number | undefined;
+} = {}) {
   return (
     <svg
-      width="499"
-      height="502"
+      width={width}
+      height={height}
       viewBox="0 0 499 502"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <g opacity="0.3">
+      <g opacity={opacity}>
         <path
           d="M432.503 78.0338C385.453 27.5414 317.747 0 245.451 0C239.714 0 232.828 7.00241e-05 227.09 1.14763C112.335 9.18051 56.1046 90.6569 49.2193 100.985C40.0389 112.46 -32.257 212.298 17.0879 348.857L18.2355 352.3C18.2355 353.447 67.5802 501.482 238.566 501.482C247.746 501.482 258.075 501.482 266.108 500.334C393.486 488.859 489.881 394.759 497.913 269.675C502.504 193.937 479.553 127.379 432.503 78.0338Z"
           fill="white"

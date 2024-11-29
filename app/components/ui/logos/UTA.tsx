@@ -1,13 +1,21 @@
-export default function UTA() {
+export default function UTA({
+  width = 624,
+  height = 577,
+  opacity,
+}: {
+  width?: number;
+  height?: number;
+  opacity?: string | number | undefined;
+} = {}) {
   return (
     <svg
-      width="624"
-      height="577"
+      width={width}
+      height={height}
       viewBox="0 0 624 577"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <g opacity="0.3">
+      <g opacity={opacity}>
         <path
           d="M184.701 229.04L259.614 57.501H487.609L447.438 151.956H254.186C245.5 171.498 205.33 265.953 199.901 276.81V281.153C199.901 320.237 167.33 372.351 107.618 372.351C56.5902 372.351 15.334 331.095 15.334 280.067C15.334 229.04 56.5902 187.784 107.618 187.784C138.017 185.612 169.502 202.983 184.701 229.04Z"
           fill="white"

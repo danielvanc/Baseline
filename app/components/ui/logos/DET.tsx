@@ -1,13 +1,21 @@
-export default function DET() {
+export default function DET({
+  width = 487,
+  height = 482,
+  opacity,
+}: {
+  width?: number;
+  height?: number;
+  opacity?: string | number | undefined;
+} = {}) {
   return (
     <svg
-      width="487"
-      height="482"
+      width={width}
+      height={height}
       viewBox="0 0 487 482"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <g opacity="0.2" clipPath="url(#clip0_55_2315)">
+      <g opacity={opacity} clipPath="url(#clip0_55_2315)">
         <mask
           id="mask0_55_2315"
           // style="mask-type:alpha"

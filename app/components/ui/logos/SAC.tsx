@@ -1,13 +1,21 @@
-export default function SAC() {
+export default function SAC({
+  width = 560,
+  height = 577,
+  opacity,
+}: {
+  width?: number;
+  height?: number;
+  opacity?: string | number | undefined;
+} = {}) {
   return (
     <svg
-      width="560"
-      height="577"
+      width={width}
+      height={height}
       viewBox="0 0 560 577"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <g opacity="0.1">
+      <g opacity={opacity}>
         <path
           d="M278.492 -142.462L252.931 -47.1533L174.942 -68.0314L154.028 9.94848L76.0386 -10.9296L55.1249 67.0502L-22.8645 46.1721L-43.7783 124.152L-137.366 99.0985C-137.366 99.0985 5.78867 344.51 17.838 365.381C85.0605 481.813 231.909 522.982 348.395 455.729C464.881 388.476 504.849 239.448 437.627 123.015C420.083 105.318 278.492 -142.462 278.492 -142.462Z"
           fill="white"

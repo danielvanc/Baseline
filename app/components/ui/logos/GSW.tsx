@@ -1,13 +1,21 @@
-export default function GSW() {
+export default function GSW({
+  width = 583,
+  height = 574,
+  opacity,
+}: {
+  width?: number;
+  height?: number;
+  opacity?: string | number | undefined;
+} = {}) {
   return (
     <svg
-      width="583"
-      height="574"
+      width={width}
+      height={height}
       viewBox="0 0 583 574"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <g opacity="0.15">
+      <g opacity={opacity}>
         <path
           d="M583 280.5C583 442.06 450.835 574 289 574C127.165 574 -5 442.06 -5 280.5C-5 118.94 127.165 -13 289 -13C450.835 -13 583 118.94 583 280.5Z"
           fill="#00428B"
