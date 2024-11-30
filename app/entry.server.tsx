@@ -10,14 +10,15 @@ import { createReadableStreamFromReadable } from "@react-router/node";
 import { AppLoadContext, EntryContext, ServerRouter } from "react-router";
 import { isbot } from "isbot";
 import { renderToPipeableStream } from "react-dom/server";
-import { server } from "./mocks/node";
 
 const ABORT_DELAY = 5_000;
 
 const { NODE_ENV, MOCKS } = process.env;
 
 if (NODE_ENV === "development" && MOCKS === "true") {
-  server.listen();
+  import("./mocks/node").then(({ server }) => {
+    server.listen();
+  });
 }
 
 export default function handleRequest(

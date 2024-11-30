@@ -34,12 +34,7 @@ const CURRENT_DATE_ISO = new Date().toISOString();
 
 export async function getGamesToday() {
   const response = await fetch(
-    "https://cdn.nba.com/static/json/liveData/scoreboard/todaysScoreboard_00.json",
-    {
-      headers: {
-        "Cache-Control": "public, max-age=60",
-      },
-    }
+    "https://cdn.nba.com/static/json/liveData/scoreboard/todaysScoreboard_00.json"
   );
   const json = await response.json();
   const {
@@ -69,11 +64,7 @@ export async function getGamesToday() {
     ),
   };
 
-  return data(gamesData, {
-    headers: {
-      "Cache-Control": "public, max-age=120",
-    },
-  });
+  return data(gamesData);
 }
 
 export function getRelativeLabel(currentDateISO: string = CURRENT_DATE_ISO) {
