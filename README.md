@@ -1,6 +1,17 @@
 # Welcome to Baseline!
 
-An NBA Stats app built with [Remix](https://remix.run), [Tailwind](https://tailwindcss.com/) and more.
+An NBA Stats app built with [Remix](https://remix.run), [Tailwind](https://tailwindcss.com/) [TypeScript](https://www.typescriptlang.org/), [Zod](https://zod.dev/), [Conform](https://conform.guide/), [MSW](https://mswjs.io/) and more.
+
+## Features
+
+- [x] See latest team scores from today (or yesterday or most recent whichever is most relevant) on homepage)
+- [x] Switch between your favourite teams and have your favourite team preferences saved for next time you visit (not currently persisted accross devices)
+- [ ] Switch between teams to view scores and stats relevant to that team
+- [ ] View teams standings
+- [ ] View upcoming games
+- [ ] View top stats for each individual game
+- [ ] View latest (top) news accross all teams
+- [ ] View latest (top) news relevant to that team
 
 ## Development
 
