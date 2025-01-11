@@ -1,6 +1,6 @@
 # Welcome to Baseline!
 
-An NBA Stats app built with [Remix](https://remix.run), [Tailwind](https://tailwindcss.com/) [TypeScript](https://www.typescriptlang.org/), [Zod](https://zod.dev/), [Conform](https://conform.guide/), [MSW](https://mswjs.io/) and more.
+An NBA Stats app built with [React 19](https://react.dev/), [React Router v7](https://reactrouter.com/), [Tailwind CSS](https://tailwindcss.com/) , [TypeScript](https://www.typescriptlang.org/), [Zod](https://zod.dev/), [Conform](https://conform.guide/), [MSW](https://mswjs.io/) and more.
 
 ## Features
 
