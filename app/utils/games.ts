@@ -1,6 +1,5 @@
 import { isYesterday, isBefore, subDays } from "date-fns";
 import { teams } from "~/config/teams";
-import { data } from "react-router";
 
 export interface GamesType {
   gameId: string;
@@ -64,7 +63,7 @@ export async function getGamesToday() {
     ),
   };
 
-  return data(gamesData);
+  return gamesData;
 }
 
 export function getRelativeLabel(currentDateISO: string = CURRENT_DATE_ISO) {
