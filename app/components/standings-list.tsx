@@ -7,33 +7,34 @@ export default function StandingsList({
   heading: "Eastern" | "Western";
 }) {
   return (
-    <div className="bg-gray-100 bg-opacity-10 backdrop-filter backdrop-blur-lg shadow rounded-lg text-white border-[1px] border-faded xl:w-1/2 mb-5 xl:mb-0">
+    <div className="bg-gray-100 bg-opacity-10 backdrop-filter backdrop-blur-lg shadow rounded-lg text-white border-[1px] border-faded md:w-1/2 mb-5 xl:mb-0">
       <div className="flex justify-between items-center">
         <h3 className="section-heading-small p-3">{heading}</h3>
-        <ul className="flex space-x-3 w-1/3 [&>li]:opacity-25 [&>li]:text-sm [&>li]:font-bold">
+        <ul className="flex justify-end 2xl:justify-evenly mr-3 space-x-3 lg:space-x-4 2xl:space-x-3 w-1/3 md:w-1/5 xl:w-1/6 2xl:w-1/3 [&>li]:opacity-25 [&>li]:text-sm [&>li]:font-bold">
           <li>W</li>
           <li>L</li>
-          <li>Win%</li>
+          <li className="hidden 2xl:block">W%</li>
         </ul>
       </div>
-      <ul className="">
+      <ul>
         {data.map((team) => (
           <li
             key={team.teamId}
-            className="flex justify-between p-3 border-faded border-b-[1px] text-sm"
+            className="flex items-center justify-between p-3 border-faded border-b-[1px] text-sm"
           >
-            <span className="w-2/4 whitespace-nowrap">
+            <span className="flex items-center space-x-1">
               <img
                 src={`https://cdn.nba.com/logos/nba/${team.teamId}/global/L/logo.svg`}
                 alt=""
                 className="w-7 h-7 inline-block mr-2"
               />
-              {team.teamCity} {team.teamName}
+              <span className="lg:hidden xl:block">{team.teamCity}</span>{" "}
+              <span>{team.teamName}</span>
             </span>
-            <ul className="flex space-x-3 w-1/3">
+            <ul className="flex space-x-3 2xl:w-1/3 justify-end 2xl:justify-evenly">
               <li>{team.wins}</li>
               <li>{team.losses}</li>
-              <li>{team.winPct}</li>
+              <li className="hidden 2xl:block">{team.winPct}</li>
             </ul>
           </li>
         ))}

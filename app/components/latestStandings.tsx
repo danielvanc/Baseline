@@ -12,7 +12,7 @@ export default function LatestStandings({
   return (
     <section>
       <h2 className="section-heading">Standings</h2>
-      <div className="xl:flex justify-between xl:space-x-3">
+      <div className="md:flex justify-between md:space-x-5 lg:space-x-3">
         <StandingsList data={west} heading="Western" />
         <StandingsList data={east} heading="Eastern" />
       </div>

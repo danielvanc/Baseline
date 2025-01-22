@@ -14,9 +14,9 @@ export default function LatestGames({ data }: { data: TodaysGames }) {
             key={game.gameId}
             className="border-faded border-b-[1px] relative text-sm"
           >
-            <div className="flex flex-col sm:flex-row items-center p-4">
+            <div className="flex flex-col sm:flex-row items-center p-2 md:p-2">
               <div className="sm:w-2/5 sm:text-right flex flex-row-reverse sm:flex-row items-center justify-end [&>svg]:min-w-[45px] [&>svg]:min-h-[45px]">
-                <span className="sm:max-w-32 md:max-w-none whitespace-nowrap">
+                <span className="sm:max-w-32 xl:max-w-none xl:whitespace-nowrap">
                   {game.awayTeam.teamCity} {game.awayTeam.teamName}
                 </span>
                 <span className="mr-3 sm:ml-3 sm:mr-0 absolute sm:relative left-10 sm:left-auto top-1/2 transform sm:transform-none -translate-y-1/2">
@@ -30,7 +30,7 @@ export default function LatestGames({ data }: { data: TodaysGames }) {
                 <span className="absolute sm:relative right-10 sm:right-auto transform -translate-y-1/2 sm:transform-none">
                   {getTeamLogo(game.homeTeam.teamTricode)}
                 </span>
-                <span className="ml-3 sm:max-w-32 md:max-w-none whitespace-nowrap">
+                <span className="ml-3 sm:max-w-32 xl:max-w-none xl:whitespace-nowrap">
                   {game.homeTeam.teamCity} {game.homeTeam.teamName}
                 </span>
               </div>

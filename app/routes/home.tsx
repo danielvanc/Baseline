@@ -59,15 +59,15 @@ export default function Home({
   loaderData: { gamesData, latestStandings },
 }: Route.ComponentProps) {
   return (
-    <main className="flex justify-between space-x-10">
-      <div className="sm:w-2/4">
+    <main className="lg:flex justify-between lg:space-x-10">
+      <div className="lg:w-2/4 mb-10 lg:mb-0">
         <React.Suspense fallback={<SkeletonTodaysGames />}>
           <Await resolve={gamesData as Promise<TodaysGames>}>
             {(gamesData) => <LatestGames data={gamesData} />}
           </Await>
         </React.Suspense>
       </div>
-      <div className="sm:w-2/4">
+      <div className="lg:w-2/4">
         <React.Suspense fallback={<SkeletonTodaysGames />}>
           <Await resolve={latestStandings}>
             {(latestStandings) => <LatestStandings data={latestStandings} />}
