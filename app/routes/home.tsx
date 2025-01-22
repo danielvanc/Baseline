@@ -1,7 +1,7 @@
-import type { Route } from "./+types/index";
+import type { Route } from "./+types/home";
 import { getGamesToday, type TodaysGames } from "~/utils/games";
 import React from "react";
-import { Await, data } from "react-router";
+import { Await, data, type HeadersArgs } from "react-router";
 import SkeletonTodaysGames from "~/components/ui/loading/skeleton-todays-games";
 import LatestGames from "~/components/latestGames";
 
@@ -10,6 +10,10 @@ export function meta() {
     { title: "Baseline" },
     { name: "description", content: "Welcome to Baseline!" },
   ];
+}
+
+export function headers({ loaderHeaders }: HeadersArgs) {
+  return loaderHeaders;
 }
 
 export async function loader() {
@@ -40,17 +44,13 @@ export async function clientLoader({ serverLoader }: Route.ClientLoaderArgs) {
   return { gamesData };
 }
 
-export function HydrateFallback() {
-  return <div>Loading...</div>;
-}
-
-export default function Index({
+export default function Home({
   loaderData: { gamesData },
 }: Route.ComponentProps) {
   return (
     <React.Suspense fallback={<SkeletonTodaysGames />}>
-      <Await resolve={gamesData as unknown as Promise<{ data: TodaysGames }>}>
-        {(gamesData) => <LatestGames data={gamesData.data} />}
+      <Await resolve={gamesData as Promise<TodaysGames>}>
+        {(gamesData) => <LatestGames data={gamesData} />}
       </Await>
     </React.Suspense>
   );
