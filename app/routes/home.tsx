@@ -2,6 +2,7 @@ import type { Route } from "./+types/home";
 import {
   getGamesToday,
   getLatestStandings,
+  type StandingsData,
   type TodaysGames,
 } from "~/utils/games";
 import React from "react";
@@ -37,7 +38,10 @@ export async function loader() {
 
 clientLoader.hydrate = true;
 
-let cache: { gamesData: TodaysGames };
+let cache: {
+  gamesData: TodaysGames;
+  latestStandings: StandingsData;
+};
 
 export async function clientLoader({ serverLoader }: Route.ClientLoaderArgs) {
   if (cache)
@@ -48,7 +52,7 @@ export async function clientLoader({ serverLoader }: Route.ClientLoaderArgs) {
 
   const { gamesData, latestStandings } = (await serverLoader()) as unknown as {
     gamesData: TodaysGames;
-    latestStandings: unknown;
+    latestStandings: StandingsData;
   };
   cache = { gamesData, latestStandings };
 

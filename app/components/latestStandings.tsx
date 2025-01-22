@@ -1,13 +1,10 @@
-import type { TeamTableRow } from "~/utils/games";
+import type { StandingsData } from "~/utils/games";
 import StandingsList from "./standings-list";
 
 export default function LatestStandings({
   data: { east, west },
 }: {
-  data: {
-    east: TeamTableRow[];
-    west: TeamTableRow[];
-  };
+  data: StandingsData;
 }) {
   return (
     <section>

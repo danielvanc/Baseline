@@ -1,5 +1,4 @@
 import { isYesterday, isBefore, subDays } from "date-fns";
-import { teams } from "~/config/teams";
 
 export interface GamesType {
   gameId: string;
@@ -9,12 +8,14 @@ export interface GamesType {
   gameSubLabel: string;
   gameStatusText: string;
   awayTeam: {
+    teamId: number;
     teamCity: string;
     teamName: string;
     teamTricode: string;
     score: number;
   };
   homeTeam: {
+    teamId: number;
     teamCity: string;
     teamName: string;
     teamTricode: string;
@@ -31,6 +32,11 @@ export interface TeamTableRow {
   wins: number;
   losses: number;
   winPct: number;
+}
+
+export interface StandingsData {
+  east: TeamTableRow[];
+  west: TeamTableRow[];
 }
 
 export interface TodaysGames {
@@ -82,7 +88,7 @@ export async function getLatestStandings() {
     "https://stats.nba.com/stats/leaguestandingsv3?GroupBy=conf&LeagueID=00&Season=2024-25&SeasonType=Regular%20Season&Section=overall",
     {
       headers: {
-        referrer: "https://www.nba.com/",
+        Referer: "https://www.nba.com/",
       },
     }
   );
@@ -134,10 +140,4 @@ export function getGamesHeading(gamesDate: string = CURRENT_DATE_ISO) {
   }
 
   return sectionHeading;
-}
-
-export function getTeamLogo(teamTricode: string) {
-  return teams
-    .find((t) => t.abbr === teamTricode)
-    ?.logo?.({ width: 40, height: 55 });
 }

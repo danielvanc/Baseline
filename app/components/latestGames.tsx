@@ -1,4 +1,4 @@
-import { getGamesHeading, getTeamLogo, type TodaysGames } from "~/utils/games";
+import { getGamesHeading, type TodaysGames } from "~/utils/games";
 import GameDateInfo from "./gameDateInfo";
 
 export default function LatestGames({ data }: { data: TodaysGames }) {
@@ -20,7 +20,11 @@ export default function LatestGames({ data }: { data: TodaysGames }) {
                   {game.awayTeam.teamCity} {game.awayTeam.teamName}
                 </span>
                 <span className="mr-3 sm:ml-3 sm:mr-0 absolute sm:relative left-10 sm:left-auto top-1/2 transform sm:transform-none -translate-y-1/2">
-                  {getTeamLogo(game.awayTeam.teamTricode)}
+                  <img
+                    src={`https://cdn.nba.com/logos/nba/${game.awayTeam.teamId}/global/L/logo.svg`}
+                    alt=""
+                    className="w-10 h-10 inline-block mr-2"
+                  />
                 </span>
               </div>
               <div className="mx-3 sm:w-1/5 text-center">
@@ -28,7 +32,11 @@ export default function LatestGames({ data }: { data: TodaysGames }) {
               </div>
               <div className="sm:w-2/5 text-left flex items-center [&>svg]:min-w-[45px] [&>svg]:min-h-[45px]">
                 <span className="absolute sm:relative right-10 sm:right-auto transform -translate-y-1/2 sm:transform-none">
-                  {getTeamLogo(game.homeTeam.teamTricode)}
+                  <img
+                    src={`https://cdn.nba.com/logos/nba/${game.homeTeam.teamId}/global/L/logo.svg`}
+                    alt=""
+                    className="w-10 h-10 inline-block mr-2"
+                  />
                 </span>
                 <span className="ml-3 sm:max-w-32 xl:max-w-none xl:whitespace-nowrap">
                   {game.homeTeam.teamCity} {game.homeTeam.teamName}
