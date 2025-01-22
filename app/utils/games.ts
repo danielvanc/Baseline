@@ -1,4 +1,5 @@
 import { isYesterday, isBefore, subDays } from "date-fns";
+import { teams } from "~/config/teams";
 
 export interface GamesType {
   gameId: string;
@@ -140,4 +141,10 @@ export function getGamesHeading(gamesDate: string = CURRENT_DATE_ISO) {
   }
 
   return sectionHeading;
+}
+
+export function getTeamLogo(teamTricode: string) {
+  return teams
+    .find((t) => t.abbr === teamTricode)
+    ?.logo?.({ width: 40, height: 55 });
 }
