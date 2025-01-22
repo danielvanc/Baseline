@@ -22,6 +22,17 @@ export interface GamesType {
   };
 }
 
+export interface TeamTableRow {
+  teamId: number;
+  teamCity: string;
+  teamName: string;
+  conference: string;
+  division: string;
+  wins: number;
+  losses: number;
+  winPct: number;
+}
+
 export interface TodaysGames {
   gameDate: string;
   games: GamesType[];
@@ -64,6 +75,37 @@ export async function getGamesToday() {
   };
 
   return gamesData;
+}
+
+export async function getLatestStandings() {
+  const response = await fetch(
+    "https://stats.nba.com/stats/leaguestandingsv3?GroupBy=conf&LeagueID=00&Season=2024-25&SeasonType=Regular%20Season&Section=overall",
+    {
+      headers: {
+        referrer: "https://www.nba.com/",
+      },
+    }
+  );
+  const json = await response.json();
+
+  const { resultSets } = json;
+  const { rowSet } = resultSets[0];
+
+  const mappedData: TeamTableRow[] = rowSet.map((row: [][]) => ({
+    teamId: row[2],
+    teamCity: row[3],
+    teamName: row[4],
+    conference: row[6],
+    division: row[10],
+    wins: row[13],
+    losses: row[14],
+    winPct: row[15],
+  }));
+
+  const east = mappedData.filter((team) => team.conference === "East");
+  const west = mappedData.filter((team) => team.conference === "West");
+
+  return { east, west };
 }
 
 export function getRelativeLabel(currentDateISO: string = CURRENT_DATE_ISO) {
