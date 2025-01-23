@@ -79,7 +79,7 @@ export default function Home({
             </Await>
           </React.Suspense>
         </div>
-        <div>
+        <div className="mb-10">
           <React.Suspense fallback={<SkeletonTodaysGames />}>
             <Await resolve={upcomingGames}>
               {(upcomingGames) => <UpcomingGames data={upcomingGames} />}
