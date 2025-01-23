@@ -2,6 +2,7 @@ import type { Route } from "./+types/home";
 import {
   getGamesToday,
   getLatestStandings,
+  getUpcomingGames,
   type StandingsData,
   type TodaysGames,
 } from "~/utils/games";
@@ -25,6 +26,8 @@ export function headers({ loaderHeaders }: HeadersArgs) {
 export async function loader() {
   const gamesData = getGamesToday();
   const latestStandings = getLatestStandings();
+  const upcomingGames = await getUpcomingGames();
+  console.log("upcomingGames", upcomingGames);
 
   return data(
     { gamesData, latestStandings },

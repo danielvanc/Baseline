@@ -1,4 +1,5 @@
 import { isYesterday, isBefore, subDays } from "date-fns";
+import { endpoints } from "~/config/api";
 import { teams } from "~/config/teams";
 
 export interface GamesType {
@@ -51,9 +52,7 @@ const CURRENT_DATE_ISO = new Date().toISOString();
 
 export async function getGamesToday() {
   // TODO: Add Error Handling
-  const response = await fetch(
-    "https://cdn.nba.com/static/json/liveData/scoreboard/todaysScoreboard_00.json"
-  );
+  const response = await fetch(endpoints.latestGames);
   const json = await response.json();
   const {
     scoreboard: { gameDate, games },
@@ -85,16 +84,21 @@ export async function getGamesToday() {
   return gamesData;
 }
 
+export async function getUpcomingGames() {
+  // TODO: Add Error Handling
+  const response = await fetch(endpoints.upcomingGames);
+  const json = await response.json();
+
+  return json;
+}
+
 export async function getLatestStandings() {
   // TODO: Add Error Handling
-  const response = await fetch(
-    "https://stats.nba.com/stats/leaguestandingsv3?GroupBy=conf&LeagueID=00&Season=2024-25&SeasonType=Regular%20Season&Section=overall",
-    {
-      headers: {
-        Referer: "https://www.nba.com/",
-      },
-    }
-  );
+  const response = await fetch(endpoints.latestStandings, {
+    headers: {
+      Referer: "https://www.nba.com/",
+    },
+  });
   const json = await response.json();
 
   const { resultSets } = json;
