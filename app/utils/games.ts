@@ -94,11 +94,14 @@ export async function getUpcomingGames() {
 
 export async function getLatestStandings() {
   // TODO: Add Error Handling
-  const response = await fetch(endpoints.latestStandings, {
-    headers: {
-      Referer: "https://www.nba.com/",
-    },
-  });
+  const response = await fetch(
+    `${endpoints.latestStandings}?GroupBy=conf&LeagueID=00&Season=2024-25&SeasonType=Regular%20Season&Section=overall`,
+    {
+      headers: {
+        Referer: "https://www.nba.com/",
+      },
+    }
+  );
   const json = await response.json();
 
   const { resultSets } = json;

@@ -7,7 +7,6 @@ export const leagueStandings: Array<HttpHandler> = [
     const Season = url.searchParams.get("Season");
     const SeasonType = url.searchParams.get("SeasonType");
     const Section = url.searchParams.get("Section");
-    url.searchParams.get("id");
 
     if (
       Season === "2024-25" ||
