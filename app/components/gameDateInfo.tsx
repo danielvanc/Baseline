@@ -36,7 +36,7 @@ export default function GameDateInfo({
   if (relativeGameTime === RELATIVE_STATUS.Today && gameInProgress)
     return (
       <div>
-        <span className="block opacity-35">{format(game.gameEt, "MM/dd")}</span>
+        <span className="block opacity-35">{format(game.gameEt, "dd/MM")}</span>
         <ShowScore game={game} />
       </div>
     );
@@ -50,9 +50,7 @@ export default function GameDateInfo({
   return (
     <div>
       {relativeGameTime === "Previous" ? (
-        <span className="opacity-35 absolute right-1 transform rotate-90 origin-center">
-          {format(game.gameEt, "MM/dd")}
-        </span>
+        <span className="opacity-20">{format(game.gameEt, "dd / MM")}</span>
       ) : null}
       <ShowScore game={game} />
     </div>

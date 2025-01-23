@@ -184,4 +184,12 @@
   .section-heading {
     @apply text-2xl font-black text-white uppercase tracking-widest mb-4;
   }
+
+  .section-heading-small {
+    @apply text-xl font-bold text-white;
+  }
+
+  .border-faded {
+    @apply border-white border-opacity-20;
+  }
 }

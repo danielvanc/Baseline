@@ -1,4 +1,4 @@
-import { getGamesHeading, getTeamLogo, type TodaysGames } from "~/utils/games";
+import { getGamesHeading, type TodaysGames } from "~/utils/games";
 import GameDateInfo from "./gameDateInfo";
 
 export default function LatestGames({ data }: { data: TodaysGames }) {
@@ -8,19 +8,23 @@ export default function LatestGames({ data }: { data: TodaysGames }) {
   return (
     <section>
       <h2 className="section-heading">{sectionHeading}</h2>
-      <ul className="bg-gray-100 bg-opacity-10 backdrop-filter backdrop-blur-lg shadow rounded-lg text-white border-white border-[1px] border-opacity-20">
+      <ul className="bg-gray-100 bg-opacity-10 backdrop-filter backdrop-blur-lg shadow rounded-lg text-white border-faded border-[1px]">
         {games.map((game) => (
           <li
             key={game.gameId}
-            className="border-white border-b-[1px] border-opacity-20 relative"
+            className="border-faded border-b-[1px] relative text-sm"
           >
-            <div className="flex flex-col sm:flex-row items-center p-4">
+            <div className="flex flex-col sm:flex-row items-center p-2 md:p-2">
               <div className="sm:w-2/5 sm:text-right flex flex-row-reverse sm:flex-row items-center justify-end [&>svg]:min-w-[45px] [&>svg]:min-h-[45px]">
-                <span className="sm:max-w-32 md:max-w-none">
+                <span className="sm:max-w-32 xl:max-w-none xl:whitespace-nowrap">
                   {game.awayTeam.teamCity} {game.awayTeam.teamName}
                 </span>
                 <span className="mr-3 sm:ml-3 sm:mr-0 absolute sm:relative left-10 sm:left-auto top-1/2 transform sm:transform-none -translate-y-1/2">
-                  {getTeamLogo(game.awayTeam.teamTricode)}
+                  <img
+                    src={`https://cdn.nba.com/logos/nba/${game.awayTeam.teamId}/global/L/logo.svg`}
+                    alt=""
+                    className="w-10 h-10 inline-block mr-2"
+                  />
                 </span>
               </div>
               <div className="mx-3 sm:w-1/5 text-center">
@@ -28,9 +32,13 @@ export default function LatestGames({ data }: { data: TodaysGames }) {
               </div>
               <div className="sm:w-2/5 text-left flex items-center [&>svg]:min-w-[45px] [&>svg]:min-h-[45px]">
                 <span className="absolute sm:relative right-10 sm:right-auto transform -translate-y-1/2 sm:transform-none">
-                  {getTeamLogo(game.homeTeam.teamTricode)}
+                  <img
+                    src={`https://cdn.nba.com/logos/nba/${game.homeTeam.teamId}/global/L/logo.svg`}
+                    alt=""
+                    className="w-10 h-10 inline-block mr-2"
+                  />
                 </span>
-                <span className="ml-3 sm:max-w-32 md:max-w-none">
+                <span className="ml-3 sm:max-w-32 xl:max-w-none xl:whitespace-nowrap">
                   {game.homeTeam.teamCity} {game.homeTeam.teamName}
                 </span>
               </div>

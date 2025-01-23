@@ -9,17 +9,35 @@ export interface GamesType {
   gameSubLabel: string;
   gameStatusText: string;
   awayTeam: {
+    teamId: number;
     teamCity: string;
     teamName: string;
     teamTricode: string;
     score: number;
   };
   homeTeam: {
+    teamId: number;
     teamCity: string;
     teamName: string;
     teamTricode: string;
     score: number;
   };
+}
+
+export interface TeamTableRow {
+  teamId: number;
+  teamCity: string;
+  teamName: string;
+  conference: string;
+  division: string;
+  wins: number;
+  losses: number;
+  winPct: number;
+}
+
+export interface StandingsData {
+  east: TeamTableRow[];
+  west: TeamTableRow[];
 }
 
 export interface TodaysGames {
@@ -32,6 +50,7 @@ type RelativeLabelType = "Today" | "Yesterday" | "Previous";
 const CURRENT_DATE_ISO = new Date().toISOString();
 
 export async function getGamesToday() {
+  // TODO: Add Error Handling
   const response = await fetch(
     "https://cdn.nba.com/static/json/liveData/scoreboard/todaysScoreboard_00.json"
   );
@@ -64,6 +83,38 @@ export async function getGamesToday() {
   };
 
   return gamesData;
+}
+
+export async function getLatestStandings() {
+  // TODO: Add Error Handling
+  const response = await fetch(
+    "https://stats.nba.com/stats/leaguestandingsv3?GroupBy=conf&LeagueID=00&Season=2024-25&SeasonType=Regular%20Season&Section=overall",
+    {
+      headers: {
+        Referer: "https://www.nba.com/",
+      },
+    }
+  );
+  const json = await response.json();
+
+  const { resultSets } = json;
+  const { rowSet } = resultSets[0];
+
+  const mappedData: TeamTableRow[] = rowSet.map((row: [][]) => ({
+    teamId: row[2],
+    teamCity: row[3],
+    teamName: row[4],
+    conference: row[6],
+    division: row[10],
+    wins: row[13],
+    losses: row[14],
+    winPct: row[15],
+  }));
+
+  const east = mappedData.filter((team) => team.conference === "East");
+  const west = mappedData.filter((team) => team.conference === "West");
+
+  return { east, west };
 }
 
 export function getRelativeLabel(currentDateISO: string = CURRENT_DATE_ISO) {
