@@ -25,6 +25,22 @@ export interface GamesType {
   };
 }
 
+export interface UpcomingGamesType
+  extends Pick<
+    GamesType,
+    "gameId" | "gameLabel" | "gameStatusText" | "awayTeam" | "homeTeam"
+  > {
+  gameDateTimeEst: string;
+}
+[];
+
+export interface GameWeek {
+  weekNumber: string;
+  weekName: string;
+  startDate: string;
+  endDate: string;
+}
+
 export interface TeamTableRow {
   teamId: number;
   teamCity: string;
@@ -89,7 +105,66 @@ export async function getUpcomingGames() {
   const response = await fetch(endpoints.upcomingGames);
   const json = await response.json();
 
-  return json;
+  const { leagueSchedule } = json;
+  const { gameDates, weeks } = leagueSchedule as {
+    gameDates: { gameDate: string; games: UpcomingGamesType[] }[];
+    weeks: GameWeek[];
+  };
+
+  const currentDate = new Date().toISOString();
+
+  const isDateWithinRange = (compare: string, start: string, end: string) =>
+    compare >= start && compare <= end;
+
+  const currentWeek = weeks.filter((week) =>
+    isDateWithinRange(currentDate, week.startDate, week.endDate)
+  )[0];
+  // const nextWeek = weeks.filter(
+  //   (week) => week.weekNumber === currentWeek.weekNumber + 1
+  // )[0];
+
+  // let skipTodaysGames = false;
+
+  const upcomingSchedule = gameDates
+    .filter((gameDay) => {
+      const gameDate = gameDay.gameDate.split(" ")[0];
+      const [month, day, year] = gameDate.split("/");
+      const gamesDate = `${year}-${month}-${day}`;
+      const formedDate = currentDate.split("T")[0];
+
+      return (
+        isDateWithinRange(
+          gamesDate,
+          currentWeek.startDate,
+          currentWeek.endDate
+        ) && gamesDate > formedDate
+      );
+    })
+    .map((gameDay) =>
+      gameDay.games.map(
+        ({
+          gameId,
+          awayTeam,
+          homeTeam,
+          gameLabel,
+          gameStatusText,
+          gameDateTimeEst,
+        }: UpcomingGamesType) => ({
+          gameId,
+          gameLabel,
+          gameStatusText,
+          awayTeam,
+          homeTeam,
+          gameDateTimeEst,
+        })
+      )
+    )
+    .flat();
+
+  // TODO: See below
+  // 7. If there's either, no more games for the week or only 5 more games, return the next week's games. If there's no more games next week, return an empty array
+
+  return upcomingSchedule;
 }
 
 export async function getLatestStandings() {
