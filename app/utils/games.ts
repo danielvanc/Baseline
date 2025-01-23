@@ -50,6 +50,7 @@ type RelativeLabelType = "Today" | "Yesterday" | "Previous";
 const CURRENT_DATE_ISO = new Date().toISOString();
 
 export async function getGamesToday() {
+  // TODO: Add Error Handling
   const response = await fetch(
     "https://cdn.nba.com/static/json/liveData/scoreboard/todaysScoreboard_00.json"
   );
@@ -85,6 +86,7 @@ export async function getGamesToday() {
 }
 
 export async function getLatestStandings() {
+  // TODO: Add Error Handling
   const response = await fetch(
     "https://stats.nba.com/stats/leaguestandingsv3?GroupBy=conf&LeagueID=00&Season=2024-25&SeasonType=Regular%20Season&Section=overall",
     {
