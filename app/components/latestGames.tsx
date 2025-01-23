@@ -1,4 +1,4 @@
-import { getGamesHeading, type TodaysGames } from "~/utils/games";
+import { getCDNLogo, getGamesHeading, type TodaysGames } from "~/utils/games";
 import GameDateInfo from "./gameDateInfo";
 
 export default function LatestGames({ data }: { data: TodaysGames }) {
@@ -21,7 +21,7 @@ export default function LatestGames({ data }: { data: TodaysGames }) {
                 </span>
                 <span className="mr-3 sm:ml-3 sm:mr-0 absolute sm:relative left-10 sm:left-auto top-1/2 transform sm:transform-none -translate-y-1/2">
                   <img
-                    src={`https://cdn.nba.com/logos/nba/${game.awayTeam.teamId}/global/L/logo.svg`}
+                    src={getCDNLogo(game.awayTeam.teamId)}
                     alt=""
                     className="w-10 h-10 inline-block mr-2"
                   />
@@ -33,7 +33,7 @@ export default function LatestGames({ data }: { data: TodaysGames }) {
               <div className="sm:w-2/5 text-left flex items-center [&>svg]:min-w-[45px] [&>svg]:min-h-[45px]">
                 <span className="absolute sm:relative right-10 sm:right-auto transform -translate-y-1/2 sm:transform-none">
                   <img
-                    src={`https://cdn.nba.com/logos/nba/${game.homeTeam.teamId}/global/L/logo.svg`}
+                    src={getCDNLogo(game.homeTeam.teamId)}
                     alt=""
                     className="w-10 h-10 inline-block mr-2"
                   />

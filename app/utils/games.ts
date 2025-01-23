@@ -154,3 +154,7 @@ export function getTeamLogo(teamTricode: string) {
     .find((t) => t.abbr === teamTricode)
     ?.logo?.({ width: 40, height: 55 });
 }
+
+export function getCDNLogo(teamId: number) {
+  return `https://cdn.nba.com/logos/nba/${teamId}/global/L/logo.svg`;
+}
