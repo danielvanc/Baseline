@@ -235,3 +235,24 @@ export function getTeamLogo(teamTricode: string) {
 export function getCDNLogo(teamId: number) {
   return `https://cdn.nba.com/logos/nba/${teamId}/global/L/logo.svg`;
 }
+
+export function highlightRow(
+  selectedTheme: string,
+  homeTeamId: number,
+  awayTeamId: number
+) {
+  const highlightedStyles = "bg-opacity-20 bg-white bg-opacity-10";
+  const selectedTeam =
+    selectedTheme !== "all"
+      ? teams.filter((team) => team.abbr === selectedTheme)
+      : null;
+
+  if (!selectedTeam) return "";
+
+  const ids = [homeTeamId, awayTeamId];
+  if (selectedTheme && ids.includes(selectedTeam[0].id)) {
+    return highlightedStyles;
+  }
+
+  return "";
+}

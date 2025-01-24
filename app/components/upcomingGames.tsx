@@ -1,7 +1,17 @@
-import { getCDNLogo, type UpcomingGamesType } from "~/utils/games";
+import {
+  getCDNLogo,
+  highlightRow,
+  type UpcomingGamesType,
+} from "~/utils/games";
 import { format } from "date-fns";
 
-export default function UpcomingGames({ data }: { data: UpcomingGamesType[] }) {
+export default function UpcomingGames({
+  data,
+  theme,
+}: {
+  data: UpcomingGamesType[];
+  theme: string;
+}) {
   return (
     <section>
       <h2 className="section-heading">Upcoming Games</h2>
@@ -9,7 +19,11 @@ export default function UpcomingGames({ data }: { data: UpcomingGamesType[] }) {
         {data.map((game, index) => (
           <li
             key={`upcoming-${game.gameId}-${index}`}
-            className="border-faded border-b-[1px] relative text-sm"
+            className={`border-faded border-b-[1px] relative text-sm ${highlightRow(
+              theme,
+              game.homeTeam.teamId,
+              game.awayTeam.teamId
+            )}`}
           >
             <div className="flex flex-col sm:flex-row items-center p-2 md:p-2">
               <div className="sm:w-2/5 sm:text-right flex flex-row-reverse sm:flex-row items-center justify-end [&>svg]:min-w-[45px] [&>svg]:min-h-[45px]">

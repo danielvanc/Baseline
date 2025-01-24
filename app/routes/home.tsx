@@ -8,13 +8,19 @@ import {
   type UpcomingGamesType,
 } from "~/utils/games";
 import React from "react";
-import { Await, data, type HeadersArgs } from "react-router";
+import {
+  Await,
+  data,
+  useRouteLoaderData,
+  type HeadersArgs,
+} from "react-router";
 import SkeletonTodaysGames from "~/components/ui/loading/skeleton-todays-games";
 import LatestGames from "~/components/latestGames";
 import LatestStandings from "~/components/latestStandings";
 import UpcomingGames from "~/components/upcomingGames";
 import { getLatestNews, type NewsItem } from "~/utils/news";
 import LatestNews from "~/components/latestNews";
+import StandingsList from "~/components/standings-list";
 
 export function meta() {
   return [
@@ -74,20 +80,24 @@ export async function clientLoader({ serverLoader }: Route.ClientLoaderArgs) {
 export default function Home({
   loaderData: { gamesData, latestStandings, upcomingGames, latestNews },
 }: Route.ComponentProps) {
+  const { theme } = useRouteLoaderData("root");
+
   return (
     <main className="lg:flex justify-between lg:space-x-10">
       <div className="lg:w-2/4">
         <div className="mb-10">
           <React.Suspense fallback={<SkeletonTodaysGames />}>
             <Await resolve={gamesData}>
-              {(gamesData) => <LatestGames data={gamesData} />}
+              {(gamesData) => <LatestGames data={gamesData} theme={theme} />}
             </Await>
           </React.Suspense>
         </div>
         <div className="mb-10">
           <React.Suspense fallback={<SkeletonTodaysGames />}>
             <Await resolve={upcomingGames}>
-              {(upcomingGames) => <UpcomingGames data={upcomingGames} />}
+              {(upcomingGames) => (
+                <UpcomingGames data={upcomingGames} theme={theme} />
+              )}
             </Await>
           </React.Suspense>
         </div>
@@ -96,7 +106,20 @@ export default function Home({
         <div className="mb-10">
           <React.Suspense fallback={<SkeletonTodaysGames />}>
             <Await resolve={latestStandings}>
-              {(latestStandings) => <LatestStandings data={latestStandings} />}
+              {(latestStandings) => (
+                <LatestStandings>
+                  <StandingsList
+                    data={latestStandings.west}
+                    heading="Western"
+                    theme={theme}
+                  />
+                  <StandingsList
+                    data={latestStandings.east}
+                    heading="Eastern"
+                    theme={theme}
+                  />
+                </LatestStandings>
+              )}
             </Await>
           </React.Suspense>
         </div>
