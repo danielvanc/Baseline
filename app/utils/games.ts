@@ -32,7 +32,6 @@ export interface UpcomingGamesType
   > {
   gameDateTimeEst: string;
 }
-[];
 
 export interface GameWeek {
   weekNumber: string;
