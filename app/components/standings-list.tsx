@@ -1,4 +1,4 @@
-import { TeamTableRow } from "../utils/games";
+import { getCDNLogo, TeamTableRow } from "../utils/games";
 export default function StandingsList({
   data,
   heading,
@@ -24,7 +24,7 @@ export default function StandingsList({
           >
             <span className="flex items-center space-x-1">
               <img
-                src={`https://cdn.nba.com/logos/nba/${team.teamId}/global/L/logo.svg`}
+                src={getCDNLogo(team.teamId)}
                 alt=""
                 className="w-7 h-7 inline-block mr-2"
               />

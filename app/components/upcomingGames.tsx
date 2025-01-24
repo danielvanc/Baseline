@@ -1,17 +1,14 @@
-import { getCDNLogo, getGamesHeading, type TodaysGames } from "~/utils/games";
-import GameDateInfo from "./gameDateInfo";
+import { getCDNLogo, type UpcomingGamesType } from "~/utils/games";
+import { format } from "date-fns";
 
-export default function LatestGames({ data }: { data: TodaysGames }) {
-  const { gameDate, games } = data;
-  const sectionHeading = getGamesHeading(gameDate);
-
+export default function UpcomingGames({ data }: { data: UpcomingGamesType[] }) {
   return (
     <section>
-      <h2 className="section-heading">{sectionHeading}</h2>
+      <h2 className="section-heading">Upcoming Games</h2>
       <ul className="bg-gray-100 bg-opacity-10 backdrop-filter backdrop-blur-lg shadow rounded-lg text-white border-faded border-[1px]">
-        {games.map((game) => (
+        {data.map((game, index) => (
           <li
-            key={game.gameId}
+            key={`upcoming-${game.gameId}-${index}`}
             className="border-faded border-b-[1px] relative text-sm"
           >
             <div className="flex flex-col sm:flex-row items-center p-2 md:p-2">
@@ -28,7 +25,14 @@ export default function LatestGames({ data }: { data: TodaysGames }) {
                 </span>
               </div>
               <div className="mx-3 sm:w-1/5 text-center">
-                <GameDateInfo gamesDate={gameDate} game={game} />
+                <div className="w-full text-sm">
+                  <span className="opacity-30">
+                    {format(game.gameDateTimeEst, "HH:mm")}
+                  </span>
+                  <span className="block">
+                    {format(game.gameDateTimeEst, "dd / MM")} (ET)
+                  </span>
+                </div>
               </div>
               <div className="sm:w-2/5 text-left flex items-center [&>svg]:min-w-[45px] [&>svg]:min-h-[45px]">
                 <span className="absolute sm:relative right-10 sm:right-auto transform -translate-y-1/2 sm:transform-none">

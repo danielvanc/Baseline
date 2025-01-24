@@ -1,12 +1,12 @@
 import { http, HttpHandler, HttpResponse } from "msw";
+import { endpoints } from "~/config/api";
 
 export const leagueStandings: Array<HttpHandler> = [
-  http.get("https://stats.nba.com/stats/leaguestandingsv3", ({ request }) => {
+  http.get(endpoints.latestStandings, ({ request }) => {
     const url = new URL(request.url);
     const Season = url.searchParams.get("Season");
     const SeasonType = url.searchParams.get("SeasonType");
     const Section = url.searchParams.get("Section");
-    url.searchParams.get("id");
 
     if (
       Season === "2024-25" ||

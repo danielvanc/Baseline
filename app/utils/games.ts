@@ -1,4 +1,5 @@
 import { isYesterday, isBefore, subDays } from "date-fns";
+import { endpoints } from "~/config/api";
 import { teams } from "~/config/teams";
 
 export interface GamesType {
@@ -22,6 +23,22 @@ export interface GamesType {
     teamTricode: string;
     score: number;
   };
+}
+
+export interface UpcomingGamesType
+  extends Pick<
+    GamesType,
+    "gameId" | "gameLabel" | "gameStatusText" | "awayTeam" | "homeTeam"
+  > {
+  gameDateTimeEst: string;
+}
+[];
+
+export interface GameWeek {
+  weekNumber: string;
+  weekName: string;
+  startDate: string;
+  endDate: string;
 }
 
 export interface TeamTableRow {
@@ -51,9 +68,7 @@ const CURRENT_DATE_ISO = new Date().toISOString();
 
 export async function getGamesToday() {
   // TODO: Add Error Handling
-  const response = await fetch(
-    "https://cdn.nba.com/static/json/liveData/scoreboard/todaysScoreboard_00.json"
-  );
+  const response = await fetch(endpoints.latestGames);
   const json = await response.json();
   const {
     scoreboard: { gameDate, games },
@@ -85,10 +100,77 @@ export async function getGamesToday() {
   return gamesData;
 }
 
+export async function getUpcomingGames() {
+  // TODO: Add Error Handling
+  const response = await fetch(endpoints.upcomingGames);
+  const json = await response.json();
+
+  const { leagueSchedule } = json;
+  const { gameDates, weeks } = leagueSchedule as {
+    gameDates: { gameDate: string; games: UpcomingGamesType[] }[];
+    weeks: GameWeek[];
+  };
+
+  const currentDate = new Date().toISOString();
+
+  const isDateWithinRange = (compare: string, start: string, end: string) =>
+    compare >= start && compare <= end;
+
+  const currentWeek = weeks.filter((week) =>
+    isDateWithinRange(currentDate, week.startDate, week.endDate)
+  )[0];
+  // const nextWeek = weeks.filter(
+  //   (week) => week.weekNumber === currentWeek.weekNumber + 1
+  // )[0];
+
+  // let skipTodaysGames = false;
+
+  const upcomingSchedule = gameDates
+    .filter((gameDay) => {
+      const gameDate = gameDay.gameDate.split(" ")[0];
+      const [month, day, year] = gameDate.split("/");
+      const gamesDate = `${year}-${month}-${day}`;
+      const formedDate = currentDate.split("T")[0];
+
+      return (
+        isDateWithinRange(
+          gamesDate,
+          currentWeek.startDate,
+          currentWeek.endDate
+        ) && gamesDate > formedDate
+      );
+    })
+    .map((gameDay) =>
+      gameDay.games.map(
+        ({
+          gameId,
+          awayTeam,
+          homeTeam,
+          gameLabel,
+          gameStatusText,
+          gameDateTimeEst,
+        }: UpcomingGamesType) => ({
+          gameId,
+          gameLabel,
+          gameStatusText,
+          awayTeam,
+          homeTeam,
+          gameDateTimeEst,
+        })
+      )
+    )
+    .flat();
+
+  // TODO: See below
+  // 7. If there's either, no more games for the week or only 5 more games, return the next week's games. If there's no more games next week, return an empty array
+
+  return upcomingSchedule;
+}
+
 export async function getLatestStandings() {
   // TODO: Add Error Handling
   const response = await fetch(
-    "https://stats.nba.com/stats/leaguestandingsv3?GroupBy=conf&LeagueID=00&Season=2024-25&SeasonType=Regular%20Season&Section=overall",
+    `${endpoints.latestStandings}?GroupBy=conf&LeagueID=00&Season=2024-25&SeasonType=Regular%20Season&Section=overall`,
     {
       headers: {
         Referer: "https://www.nba.com/",
@@ -149,4 +231,8 @@ export function getTeamLogo(teamTricode: string) {
   return teams
     .find((t) => t.abbr === teamTricode)
     ?.logo?.({ width: 40, height: 55 });
+}
+
+export function getCDNLogo(teamId: number) {
+  return `https://cdn.nba.com/logos/nba/${teamId}/global/L/logo.svg`;
 }
