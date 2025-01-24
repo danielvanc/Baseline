@@ -10,7 +10,7 @@ An NBA Stats app built with [React 19](https://react.dev/), [React Router v7](ht
 - [x] View teams standings
 - [x] View upcoming games
 - [ ] View top stats for each individual game
-- [ ] View latest (top) news accross all teams
+- [x] View latest (top) news accross all teams
 - [ ] View latest (top) news relevant to that team
 
 ## Development
