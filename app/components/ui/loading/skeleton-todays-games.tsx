@@ -1,5 +1,5 @@
 export default function SkeletonTodaysGames({
-  blocksToShow = 5,
+  blocksToShow = 8,
 }: {
   blocksToShow?: number;
 }) {
@@ -14,13 +14,13 @@ export default function SkeletonTodaysGames({
             key={`s-${idx}`}
             className="flex flex-row items-start p-2 space-x-2"
           >
-            <div className="mx-auto h-24 w-2/5 rounded-lg bg-opacity-10 backdrop-filter backdrop-blur-lg shadow-md">
+            <div className="mx-auto h-14 w-2/5 rounded-lg bg-opacity-10 backdrop-filter backdrop-blur-lg shadow-md">
               &nbsp;
             </div>
-            <div className="mx-auto h-24 w-1/5 rounded-lg bg-opacity-10 backdrop-filter backdrop-blur-lg shadow-md">
+            <div className="mx-auto h-14 w-1/5 rounded-lg bg-opacity-10 backdrop-filter backdrop-blur-lg shadow-md">
               &nbsp;
             </div>
-            <div className="mx-auto h-24 w-2/5 rounded-lg bg-opacity-10 backdrop-filter backdrop-blur-lg shadow-md">
+            <div className="mx-auto h-14 w-2/5 rounded-lg bg-opacity-10 backdrop-filter backdrop-blur-lg shadow-md">
               &nbsp;
             </div>
           </div>
