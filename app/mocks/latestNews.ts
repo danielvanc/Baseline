@@ -29,41 +29,31 @@ export const latestNews: Array<HttpHandler> = [
         url: "https://www.nba.com/news/hornets-brandon-miller-out-for-season-torn-ligament-right-wrist",
         source: "nba",
       },
-      // {
-      //   title: "Nightly Pulse: NBA news & highlights from Jan. 23",
-      //   url: "https://www.nba.com/news/nightly-pulse-nba-news-highlights-from-jan-23",
-      //   source: "nba",
-      // },
-      // {
-      //   title: "Magic's Franz Wagner (oblique) available vs. Blazers",
-      //   url: "https://www.nba.com/news/magic-franz-wagner-returns-after-20-game-absence",
-      //   source: "nba",
-      // },
-      // {
-      //   title: "Heat-Bucks game delayed an hour due to travel",
-      //   url: "https://www.nba.com/news/bucks-heat-game-delayed-an-hour-due-to-travel",
-      //   source: "nba",
-      // },
-      // {
-      //   title: "NBA Fantasy – Salary Cap Edition: Midseason Top 5",
-      //   url: "https://www.nba.com/news/nba-fantasy-salary-cap-edition-midseason-top-5",
-      //   source: "nba",
-      // },
-      // {
-      //   title: "Tissot expands partnership with NBA, WNBA, G League",
-      //   url: "https://www.nba.com/news/tissot-expands-global-multiyear-marketing-partnership-nba-wnba-g-league",
-      //   source: "nba",
-      // },
-      // {
-      //   title: "5 takeaways: NBA All-Star starters revealed",
-      //   url: "https://www.nba.com/news/2025-all-star-starters-takeaways",
-      //   source: "nba",
-      // },
-      // {
-      //   title: "Silver: NBA looking at expanding footprint in Europe",
-      //   url: "https://www.nba.com/news/adam-silver-paris-news-conference-ap",
-      //   source: "nba",
-      // },
+      {
+        title: "Nightly Pulse: NBA news & highlights from Jan. 23",
+        url: "https://www.nba.com/news/nightly-pulse-nba-news-highlights-from-jan-23",
+        source: "nba",
+      },
+      {
+        title: "Magic's Franz Wagner (oblique) available vs. Blazers",
+        url: "https://www.nba.com/news/magic-franz-wagner-returns-after-20-game-absence",
+        source: "nba",
+      },
+      {
+        title: "Heat-Bucks game delayed an hour due to travel",
+        url: "https://www.nba.com/news/bucks-heat-game-delayed-an-hour-due-to-travel",
+        source: "nba",
+      },
+      {
+        title: "NBA Fantasy – Salary Cap Edition: Midseason Top 5",
+        url: "https://www.nba.com/news/nba-fantasy-salary-cap-edition-midseason-top-5",
+        source: "nba",
+      },
+      {
+        title: "Tissot expands partnership with NBA, WNBA, G League",
+        url: "https://www.nba.com/news/tissot-expands-global-multiyear-marketing-partnership-nba-wnba-g-league",
+        source: "nba",
+      },
     ]);
   }),
 ];
