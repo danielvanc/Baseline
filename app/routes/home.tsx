@@ -21,6 +21,8 @@ import UpcomingGames from "~/components/upcomingGames";
 import { getLatestNews, type NewsItem } from "~/utils/news";
 import LatestNews from "~/components/latestNews";
 import StandingsList from "~/components/standings-list";
+import SkeletonStandings from "~/components/ui/loading/skeleton-standings";
+import SkeletonNews from "~/components/ui/loading/skeleton-news";
 
 export function meta() {
   return [
@@ -104,7 +106,7 @@ export default function Home({
       </div>
       <div className="lg:w-2/4">
         <div className="mb-10">
-          <React.Suspense fallback={<SkeletonTodaysGames />}>
+          <React.Suspense fallback={<SkeletonStandings />}>
             <Await resolve={latestStandings}>
               {(latestStandings) => (
                 <LatestStandings>
@@ -125,7 +127,7 @@ export default function Home({
         </div>
 
         <div className="mb-10">
-          <React.Suspense fallback={<SkeletonTodaysGames />}>
+          <React.Suspense fallback={<SkeletonNews />}>
             <Await resolve={latestNews}>
               {(latestNews) => <LatestNews data={latestNews} />}
             </Await>
