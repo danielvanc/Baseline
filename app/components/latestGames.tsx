@@ -1,7 +1,18 @@
-import { getCDNLogo, getGamesHeading, type TodaysGames } from "~/utils/games";
+import {
+  getCDNLogo,
+  getGamesHeading,
+  highlightRow,
+  type TodaysGames,
+} from "~/utils/games";
 import GameDateInfo from "./gameDateInfo";
 
-export default function LatestGames({ data }: { data: TodaysGames }) {
+export default function LatestGames({
+  data,
+  theme,
+}: {
+  data: TodaysGames;
+  theme: string;
+}) {
   const { gameDate, games } = data;
   const sectionHeading = getGamesHeading(gameDate);
 
@@ -12,7 +23,11 @@ export default function LatestGames({ data }: { data: TodaysGames }) {
         {games.map((game) => (
           <li
             key={game.gameId}
-            className="border-faded border-b-[1px] relative text-sm"
+            className={`border-faded border-b-[1px] relative text-sm ${highlightRow(
+              theme,
+              game.homeTeam.teamId,
+              game.awayTeam.teamId
+            )}`}
           >
             <div className="flex flex-col sm:flex-row items-center p-2 md:p-2">
               <div className="sm:w-2/5 sm:text-right flex flex-row-reverse sm:flex-row items-center justify-end [&>svg]:min-w-[45px] [&>svg]:min-h-[45px]">
