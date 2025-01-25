@@ -16,7 +16,7 @@ export const upcomingGames: Array<HttpHandler> = [
         leagueId: "00",
         gameDates: [
           {
-            gameDate: "01/25/2025 17:00:00",
+            gameDate: "01/27/2025 00:00:00",
             games: [
               {
                 gameId: "0012400001",
@@ -388,7 +388,7 @@ export const upcomingGames: Array<HttpHandler> = [
             ],
           },
           {
-            gameDate: "01/26/2025 17:00:00",
+            gameDate: "01/26/2025 00:00:00",
             games: [
               {
                 gameId: "0012400001",
@@ -760,7 +760,7 @@ export const upcomingGames: Array<HttpHandler> = [
             ],
           },
           {
-            gameDate: "01/25/2025 17:00:00",
+            gameDate: "02/01/2025 00:00:00",
             games: [
               {
                 gameId: "0012400001",
@@ -1132,7 +1132,7 @@ export const upcomingGames: Array<HttpHandler> = [
             ],
           },
           {
-            gameDate: "01/19/2025 17:00:00",
+            gameDate: "01/21/2025 00:00:00",
             games: [
               {
                 gameId: "0012400001",

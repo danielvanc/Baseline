@@ -116,35 +116,46 @@ export async function getUpcomingGames() {
       weeks: GameWeek[];
     };
 
-    const currentDate = new Date().toISOString();
+    const currentDate = new Date().toISOString().split("T")[0];
 
     const isDateWithinRange = (compare: string, start: string, end: string) =>
-      compare >= start && compare <= end;
+      compare >= start.split("T")[0] && compare <= end.split("T")[0];
 
     const currentWeek = weeks.filter((week) =>
       isDateWithinRange(currentDate, week.startDate, week.endDate)
     )[0];
-    // const nextWeek = weeks.filter(
-    //   (week) => week.weekNumber === currentWeek.weekNumber + 1
-    // )[0];
 
-    // let skipTodaysGames = false;
-
-    const upcomingSchedule = gameDates
-      .filter((gameDay) => {
+    const getGameLineups = (startDate: string, endDate: string) => {
+      console.log("startDate", startDate);
+      console.log("endDate", endDate);
+      return gameDates.filter((gameDay) => {
         const gameDate = gameDay.gameDate.split(" ")[0];
         const [month, day, year] = gameDate.split("/");
         const gamesDate = `${year}-${month}-${day}`;
         const formedDate = currentDate.split("T")[0];
 
         return (
-          isDateWithinRange(
-            gamesDate,
-            currentWeek.startDate,
-            currentWeek.endDate
-          ) && gamesDate > formedDate
+          isDateWithinRange(gamesDate, startDate, endDate) &&
+          gamesDate > formedDate
         );
-      })
+      });
+    };
+
+    let scheduleDates = getGameLineups(
+      currentWeek.startDate,
+      currentWeek.endDate
+    );
+
+    if (!scheduleDates.length || scheduleDates[0].games.length < 5) {
+      const nextWeek = weeks.filter(
+        (week) => week.weekNumber === currentWeek.weekNumber + 1
+      )[0];
+      const newDates = getGameLineups(nextWeek.startDate, nextWeek.endDate);
+
+      scheduleDates = [...scheduleDates, ...newDates.slice(0, 2)];
+    }
+
+    const upcomingSchedule = scheduleDates
       .map((gameDay) =>
         gameDay.games.map(
           ({
@@ -165,9 +176,6 @@ export async function getUpcomingGames() {
         )
       )
       .flat();
-
-    // TODO: See below
-    // 7. If there's either, no more games for the week or only 5 more games, return the next week's games. If there's no more games next week, return an empty array
 
     return upcomingSchedule;
   } catch {
