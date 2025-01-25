@@ -11,6 +11,7 @@ import React from "react";
 import {
   Await,
   data,
+  isRouteErrorResponse,
   useRouteLoaderData,
   type HeadersArgs,
 } from "react-router";
@@ -97,9 +98,11 @@ export default function Home({
         <div className="mb-10">
           <React.Suspense fallback={<SkeletonTodaysGames />}>
             <Await resolve={upcomingGames}>
-              {(upcomingGames) => (
-                <UpcomingGames data={upcomingGames} theme={theme} />
-              )}
+              {(upcomingGames) =>
+                upcomingGames && (
+                  <UpcomingGames data={upcomingGames} theme={theme} />
+                )
+              }
             </Await>
           </React.Suspense>
         </div>
@@ -135,5 +138,20 @@ export default function Home({
         </div>
       </div>
     </main>
+  );
+}
+
+export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
+  if (isRouteErrorResponse(error)) {
+    console.error(error.status, error.statusText, error.data);
+  } else if (error instanceof Error) {
+    console.error(error.message, error.stack);
+  }
+
+  return (
+    <div className="text-white">
+      <h1 className="section-heading">Error fetching data</h1>
+      <p>We were unable to fetch the feeds right now. Please try again soon.</p>
+    </div>
   );
 }
