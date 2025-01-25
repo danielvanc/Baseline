@@ -126,8 +126,6 @@ export async function getUpcomingGames() {
     )[0];
 
     const getGameLineups = (startDate: string, endDate: string) => {
-      console.log("startDate", startDate);
-      console.log("endDate", endDate);
       return gameDates.filter((gameDay) => {
         const gameDate = gameDay.gameDate.split(" ")[0];
         const [month, day, year] = gameDate.split("/");
