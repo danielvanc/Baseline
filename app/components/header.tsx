@@ -26,16 +26,14 @@ export default function Header({
   React.useEffect(() => {}, [selected]);
 
   return (
-    <header className="py-8 mb-16 border-white border-b-[1px] border-opacity-20">
-      <nav className="flex justify-between items-center">
+    <header className="pt-8 pb-0 md:pb-8 mb-16 border-white md:border-b-[1px] border-opacity-20">
+      <nav className="flex flex-col md:flex-row md:justify-between items-center">
         <div className="logo text-6xl text-skin-base">
           <span className="underline">Base</span>Line
         </div>
-        <div className="pt-1 relative hidden md:block">
+        <div className="pt-1 relative mt-7 md:mt-0">
           <nav>
             <ul className="flex items-center text-white space-x-8 leading-9">
-              <li>Schedule</li>
-              <li>Results</li>
               <li className="w-[215px]">
                 <Form method="post" id="team-form">
                   <Listbox
