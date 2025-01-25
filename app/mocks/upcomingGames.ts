@@ -3,6 +3,7 @@ import { endpoints } from "~/config/api";
 
 export const upcomingGames: Array<HttpHandler> = [
   http.get(endpoints.upcomingGames, () => {
+    // return an error response of 500
     return HttpResponse.json({
       meta: {
         version: 1,
@@ -15,7 +16,7 @@ export const upcomingGames: Array<HttpHandler> = [
         leagueId: "00",
         gameDates: [
           {
-            gameDate: "01/23/2025 17:00:00",
+            gameDate: "01/25/2025 17:00:00",
             games: [
               {
                 gameId: "0012400001",
@@ -387,7 +388,7 @@ export const upcomingGames: Array<HttpHandler> = [
             ],
           },
           {
-            gameDate: "01/24/2025 17:00:00",
+            gameDate: "01/26/2025 17:00:00",
             games: [
               {
                 gameId: "0012400001",
