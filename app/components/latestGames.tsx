@@ -34,7 +34,7 @@ export default function LatestGames({
                 <span className="sm:max-w-32 xl:max-w-none xl:whitespace-nowrap">
                   {game.awayTeam.teamCity} {game.awayTeam.teamName}
                 </span>
-                <span className="mr-3 sm:ml-3 sm:mr-0 absolute sm:relative left-10 sm:left-auto top-1/2 transform sm:transform-none -translate-y-1/2">
+                <span className="mr-3 sm:ml-3 sm:mr-0 absolute sm:relative left-4 sm:left-auto top-1/2 transform sm:transform-none -translate-y-1/2">
                   <img
                     src={getCDNLogo(game.awayTeam.teamId)}
                     alt=""
@@ -46,7 +46,7 @@ export default function LatestGames({
                 <GameDateInfo gamesDate={gameDate} game={game} />
               </div>
               <div className="sm:w-2/5 text-left flex items-center [&>svg]:min-w-[45px] [&>svg]:min-h-[45px]">
-                <span className="absolute sm:relative right-10 sm:right-auto transform -translate-y-1/2 sm:transform-none">
+                <span className="absolute sm:relative right-4 sm:right-auto transform -translate-y-2/3 sm:transform-none">
                   <img
                     src={getCDNLogo(game.homeTeam.teamId)}
                     alt=""
