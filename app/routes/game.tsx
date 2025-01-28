@@ -1,19 +1,21 @@
 import type { Route } from "./+types/game";
 import { getCDNLogo, getGameStats, type GameStats } from "~/utils/games";
 import { format } from "date-fns";
-import { Link } from "react-router";
+import { data, Link } from "react-router";
 
 export async function loader({ params }: Route.LoaderArgs) {
   const { gameId, gameDate } = params;
 
   const gameStats = await getGameStats(gameDate, gameId);
 
-  return { gameStats };
+  return data(gameStats, {
+    headers: {
+      "Cache-Control": "max-age=3600, public",
+    },
+  });
 }
 
-export default function Game({
-  loaderData: { gameStats },
-}: Route.ComponentProps) {
+export default function Game({ loaderData: gameStats }: Route.ComponentProps) {
   const { awayTeam, homeTeam, gameLeaders, teamLeaders, gameEt, gameLabel } =
     gameStats[0] as GameStats;
 
@@ -26,7 +28,7 @@ export default function Game({
         <p className="text-center opacity-25">
           {format(gameEt, "dd / MM / yyyy - hh:mm")} (ET)
         </p>
-        <div className="md:flex md:space-x-5 justify-between py-4">
+        <div className="md:flex md:items-center md:space-x-5 justify-between py-4">
           <div className="flex justify-between space-x-8 items-center md:w-1/2">
             <span className="text-lg md:text-2xl text-center md:text-right md:max-w-[160px] w-full">
               <span className="md:max-w-[100px] block md:float-right">
@@ -38,7 +40,7 @@ export default function Game({
             <span className="text-lg">{awayTeam.score}</span>
             <span className="text-lg">{homeTeam.score}</span>
           </div>
-          <div className="flex flex-row-reverse items-center md:w-1/2 justify-between text-center">
+          <div className="flex flex-row-reverse items-center md:w-1/2 justify-between text-center md:text-left">
             <span className="md:ml-8 text-lg md:text-2xl md:max-w-[160px] w-full">
               {homeTeamName}
             </span>

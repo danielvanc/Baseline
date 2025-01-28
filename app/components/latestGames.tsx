@@ -21,6 +21,7 @@ function IncludeLink({
     <Link
       to={`game/${game.gameId}/${game.gameTimeUTC.split("T")[0]}`}
       className="hover:bg-opacity-20 hover:bg-white block"
+      prefetch="intent"
     >
       {children}
     </Link>
