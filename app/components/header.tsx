@@ -1,4 +1,4 @@
-import { Form, useSubmit } from "react-router";
+import { Form, Link, useSubmit } from "react-router";
 import React from "react";
 import {
   Listbox,
@@ -29,7 +29,9 @@ export default function Header({
     <header className="pt-8 pb-0 md:pb-8 mb-16 border-white md:border-b-[1px] border-opacity-20">
       <nav className="flex flex-col md:flex-row md:justify-between items-center">
         <div className="logo text-6xl text-skin-base">
-          <span className="underline">Base</span>Line
+          <Link to="/">
+            <span className="underline">Base</span>Line
+          </Link>
         </div>
         <div className="pt-1 relative mt-7 md:mt-0">
           <nav>
