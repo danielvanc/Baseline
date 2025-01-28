@@ -3,6 +3,7 @@ import { leagueStandings } from "./leagueStandings";
 import { miscHandlers } from "./miscHandlers";
 import { scoresTodayAllTeams } from "./scoresToday";
 import { latestNews } from "./latestNews";
+import { gameStatsHandler } from "./gameStats";
 
 export const handlers = [
   ...miscHandlers,
@@ -10,4 +11,5 @@ export const handlers = [
   ...leagueStandings,
   ...upcomingGames,
   ...latestNews,
+  ...gameStatsHandler,
 ];

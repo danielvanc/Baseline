@@ -3,6 +3,16 @@ import { data } from "react-router";
 import { endpoints } from "~/config/api";
 import { teams } from "~/config/teams";
 
+export interface Team {
+  teamId: number;
+  teamCity: string;
+  teamName: string;
+  teamTricode: string;
+  score: number;
+  wins: number;
+  losses: number;
+}
+
 export interface GamesType {
   gameId: string;
   gameEt: string;
@@ -10,19 +20,38 @@ export interface GamesType {
   gameLabel: string;
   gameSubLabel: string;
   gameStatusText: string;
-  awayTeam: {
-    teamId: number;
-    teamCity: string;
-    teamName: string;
-    teamTricode: string;
+  awayTeam: Team;
+  homeTeam: Team;
+}
+
+export interface GamePeriods {
+  periods: {
+    period: number;
+    periodType: string;
     score: number;
+  }[];
+}
+
+interface Leaders {
+  assists: number;
+  name: string;
+  personId: number;
+  points: number;
+  position: string;
+  rebounds: number;
+}
+
+export interface GameStats extends GamesType {
+  awayTeam: Team & GamePeriods;
+  homeTeam: Team & GamePeriods;
+  period: number;
+  gameLeaders: {
+    awayLeaders: Leaders;
+    homeLeaders: Leaders;
   };
-  homeTeam: {
-    teamId: number;
-    teamCity: string;
-    teamName: string;
-    teamTricode: string;
-    score: number;
+  teamLeaders: {
+    awayLeaders: Leaders;
+    homeLeaders: Leaders;
   };
 }
 
@@ -85,6 +114,7 @@ export async function getGamesToday() {
           gameSubLabel,
           gameTimeUTC,
           gameEt,
+          gameStatusText,
         }: GamesType) => ({
           gameId,
           gameEt,
@@ -93,13 +123,14 @@ export async function getGamesToday() {
           gameSubLabel,
           awayTeam,
           homeTeam,
+          gameStatusText,
         })
       ),
     };
 
     return gamesData;
-  } catch {
-    console.error("Unable to retrieve today's games");
+  } catch (error) {
+    console.error("Unable to retrieve today's games", { cause: error });
 
     throw data("Unable to retrieve today's games");
   }
@@ -176,8 +207,8 @@ export async function getUpcomingGames() {
       .flat();
 
     return upcomingSchedule;
-  } catch {
-    console.error("Unable to retrieve upcoming games");
+  } catch (error) {
+    console.error("Unable to retrieve upcoming games", { cause: error });
 
     throw data("Unable to retrieve upcoming games");
   }
@@ -213,8 +244,34 @@ export async function getLatestStandings() {
     const west = mappedData.filter((team) => team.conference === "West");
 
     return { east, west };
-  } catch {
-    console.error("Unable to retrieve latest standings");
+  } catch (error) {
+    console.error("Unable to retrieve latest standings", { cause: error });
+
+    throw data("Unable to retrieve latest standings");
+  }
+}
+
+export async function getGameStats(gameDate: string, gameId: string) {
+  if (!gameDate || !gameId) throw Error("Unable to get game data");
+
+  try {
+    const response = await fetch(
+      `${endpoints.gameStats}&GameDate=${gameDate}&LeagueID=00`
+    );
+    const json = await response.json();
+
+    if (response.ok) {
+      const { scoreboard: games } = json as {
+        scoreboard: { games: GamesType[] };
+      };
+
+      const selectedGame = games.games.filter((game) => game.gameId === gameId);
+
+      return selectedGame;
+    }
+    throw data("Unable to retrieve game data");
+  } catch (error) {
+    console.error("Unable to retrieve game data", { cause: error });
 
     throw data("Unable to retrieve latest standings");
   }
@@ -263,7 +320,7 @@ export function highlightRow(
   homeTeamId: number,
   awayTeamId: number
 ) {
-  const highlightedStyles = "bg-opacity-20 bg-white bg-opacity-10";
+  const highlightedStyles = "bg-opacity-20 bg-white";
   const selectedTeam =
     selectedTheme !== "all"
       ? teams.filter((team) => team.abbr === selectedTheme)

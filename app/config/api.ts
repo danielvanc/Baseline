@@ -5,4 +5,6 @@ export const endpoints = {
   upcomingGames:
     "https://cdn.nba.com/static/json/staticData/scheduleLeagueV2_1.json",
   latestNews: "https://nba-stories.onrender.com/articles",
+  gameStats:
+    "https://proxy.boxscores.site/?apiUrl=stats.nba.com/stats/scoreboardv3",
 };

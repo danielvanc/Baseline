@@ -189,6 +189,10 @@
     @apply text-xl font-bold text-white;
   }
 
+  .section-heading-small-upper {
+    @apply text-xl font-bold text-white uppercase;
+  }
+
   .border-faded {
     @apply border-white border-opacity-20;
   }
