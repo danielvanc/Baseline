@@ -19,7 +19,7 @@ function IncludeLink({
 
   return (
     <Link
-      to={`game/${game.gameId}/${game.gameTimeUTC.split("T")[0]}`}
+      to={`game/${game.gameId}/${game.gameEt.split("T")[0]}`}
       className="hover:bg-opacity-20 hover:bg-white block"
       prefetch="intent"
     >
