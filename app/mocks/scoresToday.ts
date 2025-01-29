@@ -1,5 +1,5 @@
 import { http, HttpHandler, HttpResponse } from "msw";
-import { endpoints } from "~/config/api";
+import { endpoints } from "../config/api";
 
 export const scoresTodayAllTeams: Array<HttpHandler> = [
   http.get(endpoints.latestGames, () => {

@@ -15,7 +15,8 @@
     "lint": "eslint --ignore-path .gitignore --cache --cache-location ./node_modules/.cache/eslint .",
     "typecheck": "react-router typegen && tsc",
     "test": "vitest",
-    "test:cov": "vitest run --coverage"
+    "test:ui": "npx vitest --ui",
+    "test:cov": "npx vitest run --coverage"
   },
   "eslintIgnore": [
     "/node_modules",
@@ -50,6 +51,7 @@
     "@typescript-eslint/eslint-plugin": "^8.1.0",
     "@typescript-eslint/parser": "^8.1.0",
     "@vitest/coverage-v8": "^3.0.4",
+    "@vitest/ui": "^3.0.4",
     "autoprefixer": "^10.4.18",
     "eslint": "^8.38.0",
     "eslint-import-resolver-typescript": "^3.6.1",
