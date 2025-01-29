@@ -9,7 +9,7 @@ export default defineConfig({
   ],
   test: {
     globals: true,
-    include: ["./app/**/*.{test,spec}.?(c|m)[jt]s?(x)"],
+    include: ["./app/__tests__/**/*.{test,spec}.?(c|m)[jt]s?(x)"],
     root: __dirname,
     environment: "jsdom",
     setupFiles: ["./vitest.setup.ts"],
