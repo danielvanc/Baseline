@@ -1,7 +1,11 @@
-import { render, screen } from "@testing-library/react";
+import {
+  render,
+  screen,
+  createRoutesStub,
+  gamesYesterday,
+  gamesYesterdayNotStarted,
+} from "~/__tests__/utils";
 import LatestGames from "~/components/latestGames";
-import { gamesYesterday, gamesYesterdayNotStarted } from "./mocks";
-import { createRoutesStub } from "react-router";
 
 function setUp(mockData = gamesYesterday) {
   const LatestGamesRouteStub = createRoutesStub([

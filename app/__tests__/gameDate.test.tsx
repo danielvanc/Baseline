@@ -1,6 +1,10 @@
-import { render, screen } from "@testing-library/react";
+import {
+  render,
+  screen,
+  gamesTodayNotStarted,
+  gamesYesterdayNotStarted,
+} from "~/__tests__/utils";
 import GameDateInfo from "~/components/gameDateInfo";
-import { gamesTodayNotStarted, gamesYesterdayNotStarted } from "./mocks";
 import type { GamesType } from "~/utils/games";
 
 beforeAll(() => {

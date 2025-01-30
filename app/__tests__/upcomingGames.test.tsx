@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen } from "~/__tests__/utils";
 import UpcomingGames from "~/components/upcomingGames";
 import { getUpcomingGames } from "~/utils/games";
 

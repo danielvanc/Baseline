@@ -1,6 +1,4 @@
-import { render, screen } from "@testing-library/react";
-import { createRoutesStub } from "react-router";
-import userEvent from "@testing-library/user-event";
+import { render, screen, createRoutesStub, userEvent } from "~/__tests__/utils";
 import Header from "~/components/header";
 
 beforeAll(() => {

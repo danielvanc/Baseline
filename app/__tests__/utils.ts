@@ -1,4 +1,6 @@
+import { createRoutesStub } from "react-router";
 import type { TodaysGames } from "~/utils/games";
+import userEvent from "@testing-library/user-event";
 
 export const gamesYesterday: TodaysGames = {
   gameDate: "2025-01-29T03:00:00Z",
@@ -95,3 +97,7 @@ export const gamesTodayNotStarted: TodaysGames = {
     },
   ],
 };
+
+export * from "@testing-library/react";
+export { userEvent };
+export { createRoutesStub };
