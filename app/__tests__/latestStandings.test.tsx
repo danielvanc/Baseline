@@ -2,7 +2,7 @@ import { render, screen } from "@testing-library/react";
 import StandingsList from "~/components/standings-list";
 import { getLatestStandings, type TeamTableRow } from "~/utils/games";
 
-function setUp(heading: "Eastern" | "Western", data: TeamTableRowp[]) {
+function setUp(heading: "Eastern" | "Western", data: TeamTableRow[]) {
   render(<StandingsList heading={heading} theme="all" data={data} />);
 }
 
