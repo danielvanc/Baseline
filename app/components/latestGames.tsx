@@ -62,6 +62,7 @@ export default function LatestGames({
                       src={getCDNLogo(game.awayTeam.teamId)}
                       alt=""
                       className="w-10 h-10 inline-block mr-2"
+                      data-testid="away-team-logo"
                     />
                   </span>
                 </div>
@@ -74,6 +75,7 @@ export default function LatestGames({
                       src={getCDNLogo(game.homeTeam.teamId)}
                       alt=""
                       className="w-10 h-10 inline-block mr-2"
+                      data-testid="home-team-logo"
                     />
                   </span>
                   <span className="ml-3 sm:max-w-32 xl:max-w-none xl:whitespace-nowrap">

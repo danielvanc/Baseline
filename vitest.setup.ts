@@ -1,4 +1,4 @@
-import { server } from "./app/mocks/node.js";
+import { server } from "./app/mocks/node";
 import "@testing-library/jest-dom/vitest";
 import { cleanup } from "@testing-library/react";
 
