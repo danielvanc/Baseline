@@ -11,8 +11,6 @@ test("Renders East standings successfully", async () => {
 
   setUp("Eastern", east);
 
-  // screen.debug();
-
   expect(screen.getByText("Eastern")).toBeInTheDocument();
   expect(screen.queryByText("Western")).not.toBeInTheDocument();
 });

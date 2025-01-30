@@ -1,13 +1,14 @@
 import { render, screen } from "@testing-library/react";
 import LatestNews from "~/components/latestNews";
-import { latestNews } from "./mocks";
+import { getLatestNews } from "~/utils/news";
 
-function setUp() {
+async function setUp() {
+  const latestNews = await getLatestNews();
   render(<LatestNews data={latestNews} />);
 }
 
-test("Renders LatestNews component successfully", () => {
-  setUp();
+test("Renders LatestNews component successfully", async () => {
+  await setUp();
 
   expect(
     screen.getByRole("heading", {
@@ -16,12 +17,12 @@ test("Renders LatestNews component successfully", () => {
   ).toBeInTheDocument();
 });
 
-test("Renders LatestNews with correct amount of news items and content", () => {
-  setUp();
+test("Renders LatestNews with correct amount of news items and content", async () => {
+  await setUp();
 
   const newsItemsList = screen.getByRole("list");
   expect(newsItemsList).toBeInTheDocument();
-  expect(newsItemsList.children).toHaveLength(5);
+  expect(newsItemsList.children).toHaveLength(10);
 
   Array.from(newsItemsList.children).forEach((item) => {
     expect(item.querySelector("a")).toBeInTheDocument();
@@ -34,8 +35,8 @@ test("Renders LatestNews with correct amount of news items and content", () => {
   ).toBeInTheDocument();
 });
 
-test("Renders LatestNews news items links to have new tab opener attribute", () => {
-  setUp();
+test("Renders LatestNews news items links to have new tab opener attribute", async () => {
+  await setUp();
 
   const newsItemsList = screen.getByRole("list");
 
