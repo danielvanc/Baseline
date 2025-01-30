@@ -1,5 +1,5 @@
 import { HttpHandler, http, HttpResponse } from "msw";
-import { endpoints } from "../config/api";
+import { endpoints } from "~/config/api";
 
 export const upcomingGames: Array<HttpHandler> = [
   http.get(endpoints.upcomingGames, () => {
