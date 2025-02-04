@@ -24,15 +24,15 @@ function setUp(mockData = gamesYesterday) {
 test("Renders latest games component successfully", async () => {
   setUp();
   expect(
-    screen.getByRole("heading", { name: /yesterday's games/i })
+    screen.getByRole("heading", { name: /previous games/i })
   ).toBeInTheDocument();
 
   expect(
-    screen.queryByRole("heading", { name: /today's games/i })
+    screen.queryByRole("heading", { name: /yesterday's games/i })
   ).not.toBeInTheDocument();
 
   expect(
-    screen.queryByRole("heading", { name: /previous games/i })
+    screen.queryByRole("heading", { name: /today's games/i })
   ).not.toBeInTheDocument();
 
   const gameList = screen.getByRole("list");
